@@ -18,6 +18,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Pycharm files
+.DS_Store
+.idea
+
 # Distribution / packaging
 .Python
 env/
