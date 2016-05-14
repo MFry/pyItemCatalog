@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-# echo
+#Thanks to Dwayne Link: https://gist.github.com/dwayne/87f807f0d313b444bb37
+set -e
+
+if [ -x /usr/local/bin/python3.5 ]; then
+  echo 'Skipping Python installation since Python 3.5 is already installed.'
+else
 sudo apt-get -qq install libpq-dev python-dev
 apt-get -qq install python-virtualenv
 apt-get -qq install libpq-dev libreadline-dev libsqlite3-dev libssl-dev
