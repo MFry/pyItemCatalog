@@ -12,7 +12,7 @@ sudo apt-get -qq install postgresql-9.5 postgresql-client-9.5 postgresql-contrib
 # Create the user to access the db. (vagrant sample)
 sudo -u postgres psql -c "CREATE USER vagrant WITH SUPERUSER CREATEDB ENCRYPTED PASSWORD 'vagrant'"
 #su postgres -c 'createuser -dRS vagrant'
-su vagrant -c 'createdb'
+#su vagrant -c 'createdb'
 #su vagrant -c 'createdb tournament'
 #su vagrant -c 'psql tournament -f /vagrant/tournament/tournament.sql'
 echo "Changing to dummy password"
@@ -31,17 +31,3 @@ sudo echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/9.5/main/pg_hba.conf
 
 echo "Patching complete, restarting"
 sudo service postgresql restart
-
-
-# sudo -i
-#sudo apt-get -qq install synaptic libc6
-#apt-get -qq install postgresql
-#Remove any older postgresql installation you may have (ex:)
-#apt-get -qq remove postgresql postgresql-contrib postgresql-client
-
-#touch /etc/apt/sources.list.d/pgdg.list
-#echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
-#apt-get install wget ca-certificateswget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-# Install the PostgreSQL
-#apt-get -qq install postgresql
-#apt-get -qq update
