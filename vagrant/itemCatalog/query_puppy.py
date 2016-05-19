@@ -26,4 +26,4 @@ print()
 shelters = session.query(func.count(Puppy.shelter_id), Puppy.shelter_id).group_by(Puppy.shelter_id).all()
 print(shelters)
 for shelter in shelters:
-    print(shelter.shelter_id)
+    print(shelter.shelter_id, shelter[0])
