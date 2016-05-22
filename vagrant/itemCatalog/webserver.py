@@ -4,12 +4,10 @@ import cgi
 
 form = '''
        <form method='POST' enctype='multipart/form-data' action='/hello'>
-       <h2>What would you like me to say?</h2><input name='message' type='text' >
-       <input name="message" type="text"><input type="submit" value='Submit' >
+       <h2>What would you like me to say?</h2>
+       <input name="message" type="text"><input type="submit" value="Submit" >
        </form>
     '''
-
-form = '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
 
 
 class WebserverHandler(BaseHTTPRequestHandler):
@@ -61,8 +59,8 @@ class WebserverHandler(BaseHTTPRequestHandler):
             output = ""
             output += "<html><body>"
             output += " <h2> Okay, how about this: </h2>"
-            output += "<h1> {} </h1>".format(messagecontent[0])
-            output += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
+            output += "<h1> {} </h1>".format(messagecontent[0].decode())
+            output += form
             output += "</body></html>"
             self.wfile.write(output.encode())
             print(output)
