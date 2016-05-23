@@ -7,10 +7,10 @@ form = '''
        <h2>What would you like me to say?</h2>
        <input name="message" type="text"><input type="submit" value="Submit" >
        </form>
-    '''
+        '''
 
 
-class WebserverHandler(BaseHTTPRequestHandler):
+class WebServerHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
@@ -22,7 +22,7 @@ class WebserverHandler(BaseHTTPRequestHandler):
                 output = ""
                 output += "<html>" \
                           " <body>" \
-                          "     Hello!<br>" +form+ \
+                          "     Hello!<br>" + form + \
                           " </body>" \
                           "</html>"
                 self.wfile.write(output.encode())
@@ -35,7 +35,7 @@ class WebserverHandler(BaseHTTPRequestHandler):
 
                 output = "<html>" \
                          "    <body>" \
-                         "      &#161;Hola! <br>" +form+\
+                         "      &#161;Hola! <br>" + form +\
                          "      <a href='/hello'>Back Home</a>" \
                          "    </body>" \
                          "</html>"
@@ -50,12 +50,17 @@ class WebserverHandler(BaseHTTPRequestHandler):
             self.send_response(301)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
+
             ctype, pdict = cgi.parse_header(
                 self.headers['content-type'])
+
+            print('boundary', pdict['bondary'])
             pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+
             if ctype == 'multipart/form-data':
                 fields = cgi.parse_multipart(self.rfile, pdict)
                 messagecontent = fields.get('message')
+
             output = ""
             output += "<html><body>"
             output += " <h2> Okay, how about this: </h2>"
@@ -72,7 +77,7 @@ class WebserverHandler(BaseHTTPRequestHandler):
 def main():
     try:
         port = 8080
-        server = HTTPServer(('', port), WebserverHandler)
+        server = HTTPServer(('', port), WebServerHandler)
         print("Web server is running on port {}".format(port))
         server.serve_forever()
 
