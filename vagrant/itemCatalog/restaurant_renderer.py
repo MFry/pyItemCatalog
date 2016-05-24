@@ -10,3 +10,4 @@ class RestaurantRenderer(HTMLRenderer):
         content = ''
         for restaurant in restaurants:
             content += self.restaurant(restaurant) + '\n'
+        return content
