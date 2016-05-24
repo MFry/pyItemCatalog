@@ -6,7 +6,7 @@ class HTMLRenderer:
     def render_simple_block(content):
         return "<div>{content}</div><br>".format(content=content)
 
-    def generate_HTML(self, body, page_title=None):
+    def generate_page(self, body, page_title=None):
         if page_title:
             title = page_title
         elif self.title:
