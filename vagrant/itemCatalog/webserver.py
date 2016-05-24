@@ -1,46 +1,34 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import cgi
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from database_setup import Base, Restaurant
+from restaurant_renderer import RestaurantRenderer
 
-form = '''
-       <form method='POST' enctype='multipart/form-data' action='/hello'>
-       <h2>What would you like me to say?</h2>
-       <input name="message" type="text"><input type="submit" value="Submit" >
-       </form>
-        '''
+engine = create_engine('sqlite:///restaurantmenu.db')
+
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+
+session = DBSession()
 
 
 class WebServerHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
-            if self.path.endswith("/hello"):
+            if self.path.endswith("/restaurant"):
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
 
-                output = ""
-                output += "<html>" \
-                          " <body>" \
-                          "     Hello!<br>" + form + \
-                          " </body>" \
-                          "</html>"
-                self.wfile.write(output.encode())
-                print(output)
-
-            if self.path.endswith("/hola"):
-                self.send_response(200)
-                self.send_header('Content-type', 'text/html')
-                self.end_headers()
-
-                output = "<html>" \
-                         "    <body>" \
-                         "      &#161;Hola! <br>" + form +\
-                         "      <a href='/hello'>Back Home</a>" \
-                         "    </body>" \
-                         "</html>"
-                self.wfile.write(output.encode())
-                print(output)
+                renderer = RestaurantRenderer(title='Restaurant List')
+                restaurants = session.query(Restaurant.name).all()
+                restaurants = [r[0] for r in restaurants]
+                page = renderer.generate_page(renderer.render_restaurants(restaurants))
+                self.wfile.write(page.encode())
 
         except IOError:
             self.send_error(404, "File Not Found {}".format(self.path))
@@ -51,10 +39,11 @@ class WebServerHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/html')
             self.end_headers()
 
+            # HEADERS are now in dict/json style container
             ctype, pdict = cgi.parse_header(
                 self.headers['content-type'])
 
-            print('boundary', pdict['bondary'])
+            # boundary data needs to be encoded in a binary format
             pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
 
             if ctype == 'multipart/form-data':
@@ -64,8 +53,9 @@ class WebServerHandler(BaseHTTPRequestHandler):
             output = ""
             output += "<html><body>"
             output += " <h2> Okay, how about this: </h2>"
+            # decode it back into a normal string rather than b'stuff' binary string
             output += "<h1> {} </h1>".format(messagecontent[0].decode())
-            output += form
+            output += self.form_html
             output += "</body></html>"
             self.wfile.write(output.encode())
             print(output)
