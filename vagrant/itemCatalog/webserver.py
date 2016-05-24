@@ -16,7 +16,6 @@ session = DBSession()
 
 
 class WebServerHandler(BaseHTTPRequestHandler):
-
     def do_GET(self):
         try:
             if self.path.endswith("/restaurants"):
@@ -25,9 +24,22 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 self.end_headers()
 
                 renderer = RestaurantRenderer(title='Restaurant List')
+                renderer.generate_partial_body(
+                    preface="<h3><a href='restaurants/new'>Make a new restaurant</a></h3><br>\n")
                 restaurants = session.query(Restaurant.name).all()
                 restaurants = [r[0] for r in restaurants]
                 page = renderer.generate_page(renderer.render_restaurants(restaurants))
+                self.wfile.write(page.encode())
+
+            if self.path.endswith("/restaurants/new"):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+
+                renderer = RestaurantRenderer(title='New Restaurant Creator')
+                renderer.generate_partial_body(preface='<H1>Make a new Restaurant</h1><br>\n')
+                form_code = '<input name="restaurant" type="text" placeHolder="New Restaurant Name"><input type="submit" value="Create" > '
+                page = renderer.generate_page(renderer.render_simple_form(form_code, action='/restaurants/new'))
                 self.wfile.write(page.encode())
 
         except IOError:
@@ -35,30 +47,26 @@ class WebServerHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            self.send_response(301)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
+            if self.path.endswith("/restaurants/new"):
 
-            # HEADERS are now in dict/json style container
-            ctype, pdict = cgi.parse_header(
-                self.headers['content-type'])
+                # HEADERS are now in dict/json style container
+                ctype, pdict = cgi.parse_header(
+                    self.headers['content-type'])
 
-            # boundary data needs to be encoded in a binary format
-            pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+                # boundary data needs to be encoded in a binary format
+                pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
 
-            if ctype == 'multipart/form-data':
-                fields = cgi.parse_multipart(self.rfile, pdict)
-                messagecontent = fields.get('message')
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                    messagecontent = fields.get('restaurant')
 
-            output = ""
-            output += "<html><body>"
-            output += " <h2> Okay, how about this: </h2>"
-            # decode it back into a normal string rather than b'stuff' binary string
-            output += "<h1> {} </h1>".format(messagecontent[0].decode())
-            output += self.form_html
-            output += "</body></html>"
-            self.wfile.write(output.encode())
-            print(output)
+                session.add(Restaurant(name=messagecontent[0].decode()))
+                session.commit()
+
+                self.send_response(301)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.end_headers()
 
         except:
             raise
