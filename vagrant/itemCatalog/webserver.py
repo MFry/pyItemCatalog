@@ -72,6 +72,18 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(page.encode())
 
+            if self.path.endswith("/delete"):
+                restaurant = self._find_restaurant()
+                if not restaurant:
+                    return
+                renderer = RestaurantRenderer(title='Remove ' + restaurant.name)
+                renderer.generate_partial_body(
+                    preface='<h2>Are you sure you wish to remove {}<h/2>'.format(restaurant.name))
+                submit_code = '<input type="submit" value="Delete">\n'
+                page = renderer.generate_page(
+                    renderer.render_simple_form(submit_code, action='/restaurants/' + str(restaurant.id) + '/delete'))
+                self.wfile.write(page.encode())
+
             if self.path.endswith("/whoareyou"):
                 self.send_error(418, message="I am a teapot, running on the Hyper Text Coffee Pot Control Protocol")
                 self.end_headers()
@@ -119,6 +131,19 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 self.send_header('Content-type', 'text/html')
                 self.send_header('Location', '/restaurants')
                 self.send_response(202)
+                self.end_headers()
+
+            if self.path.endswith('/delete'):
+                restaurant = self._find_restaurant()
+                if not restaurant:
+                    return
+                session.delete(restaurant)
+                session.commit()
+
+                self.send_response(302)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.send_response(204)
                 self.end_headers()
 
         except:
