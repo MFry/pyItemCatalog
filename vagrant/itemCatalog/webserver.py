@@ -16,6 +16,22 @@ session = DBSession()
 
 
 class WebServerHandler(BaseHTTPRequestHandler):
+    def _find_restaurant(self):
+        parsed_path = self.path.split('/')
+        if not len(parsed_path) >= 3:
+            print('Error 400:', parsed_path)
+            self.send_error(400)
+            self.end_headers()
+            return None
+        result = session.query(Restaurant).filter(Restaurant.id == parsed_path[-2]).first()
+        if not result:
+            print(result)
+            print(parsed_path[-2])
+            self.send_error(404)
+            self.end_headers()
+            return None
+        return result
+
     def do_GET(self):
         try:
             if self.path.endswith("/restaurants"):
@@ -26,8 +42,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 renderer = RestaurantRenderer(title='Restaurant List')
                 renderer.generate_partial_body(
                     preface="<h3><a href='restaurants/new'>Make a new restaurant</a></h3><br>\n")
-                restaurants = session.query(Restaurant.name).all()
-                restaurants = [r[0] for r in restaurants]
+                restaurants = session.query(Restaurant).all()
                 page = renderer.generate_page(renderer.render_restaurants(restaurants))
                 self.wfile.write(page.encode())
 
@@ -42,19 +57,39 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 page = renderer.generate_page(renderer.render_simple_form(form_code, action='/restaurants/new'))
                 self.wfile.write(page.encode())
 
+            if self.path.endswith("/edit"):
+
+                restaurant = self._find_restaurant()
+                if not restaurant:
+                    return
+                renderer = RestaurantRenderer(title='Modify ' + restaurant.name)
+                renderer.generate_partial_body(preface='<h2>' + restaurant.name + '</h2>')
+                form_code = '<input name="edit" type="text" placeHolder="' + restaurant.name + '"><input type="submit" value="Rename" > '
+                page = renderer.generate_page(
+                    renderer.render_simple_form(form_code, action='/restaurants/' + str(restaurant.id) + '/edit'))
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                self.wfile.write(page.encode())
+
+            if self.path.endswith("/whoareyou"):
+                self.send_error(418)
+                self.end_headers()
+
         except IOError:
             self.send_error(404, "File Not Found {}".format(self.path))
 
     def do_POST(self):
         try:
+
+            # HEADERS are now in dict/json style container
+            ctype, pdict = cgi.parse_header(
+                self.headers['content-type'])
+
+            # boundary data needs to be encoded in a binary format
+            pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+
             if self.path.endswith("/restaurants/new"):
-
-                # HEADERS are now in dict/json style container
-                ctype, pdict = cgi.parse_header(
-                    self.headers['content-type'])
-
-                # boundary data needs to be encoded in a binary format
-                pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
 
                 if ctype == 'multipart/form-data':
                     fields = cgi.parse_multipart(self.rfile, pdict)
@@ -63,9 +98,27 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 session.add(Restaurant(name=messagecontent[0].decode()))
                 session.commit()
 
-                self.send_response(301)
+                self.send_response(302)
                 self.send_header('Content-type', 'text/html')
                 self.send_header('Location', '/restaurants')
+                self.send_response(201)
+                self.end_headers()
+
+            if self.path.endswith("/edit"):
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                    messagecontent = fields.get('edit')
+
+                restaurant = self._find_restaurant()
+                if not restaurant:
+                    return
+                restaurant.name = messagecontent[0].decode()
+                session.commit()
+
+                self.send_response(302)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.send_response(202)
                 self.end_headers()
 
         except:
