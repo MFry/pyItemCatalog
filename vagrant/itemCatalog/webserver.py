@@ -73,7 +73,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 self.wfile.write(page.encode())
 
             if self.path.endswith("/whoareyou"):
-                self.send_error(418)
+                self.send_error(418, message="I am a teapot, running on the Hyper Text Coffee Pot Control Protocol")
                 self.end_headers()
 
         except IOError:
