@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect
-
-app = Flask(__name__)
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
+
+app = Flask(__name__)
 
 engine = create_engine('sqlite:///restaurantmenu.db')
 DBSession = sessionmaker(bind=engine)
