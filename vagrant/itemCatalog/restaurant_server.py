@@ -1,11 +1,16 @@
-from flask import Flask
-
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
-    return 'Home page'
+    return render_template('restaurants_list.html')
+
+
+@app.route('/restaurants/<int:restaurant_id>/menu/')
+def menu(restaurant_id):
+    return render_template('menu_list.html')
 
 
 if __name__ == '__main__':
