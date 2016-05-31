@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('sqlite:///puppyshelter.db')
-from tutorial_shelter import Base, Shelter, Puppy
+from test.tutorial_shelter import Base, Puppy
 from datetime import datetime, timedelta
 
 Base.metadata.bind = engine

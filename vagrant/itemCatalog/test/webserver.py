@@ -1,10 +1,11 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
 import cgi
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
+from database_setup import Base, Restaurant
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant
-from restaurant_renderer import RestaurantRenderer
+
+from test.restaurant_renderer import RestaurantRenderer
 
 engine = create_engine('sqlite:///restaurantmenu.db')
 

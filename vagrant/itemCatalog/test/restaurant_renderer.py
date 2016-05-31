@@ -1,4 +1,4 @@
-from HTML_renderer import HTMLRenderer
+from test.HTML_renderer import HTMLRenderer
 
 
 class RestaurantRenderer(HTMLRenderer):

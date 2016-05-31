@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from tutorial_shelter import Base, Shelter, Puppy
+from test.tutorial_shelter import Base, Shelter, Puppy
 # from flask.ext.sqlalchemy import SQLAlchemy
 from random import randint
 import datetime
