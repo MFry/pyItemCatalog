@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-connection_str = 'postgresql://vagrant:vagrant@locahost/restaurant_menu'
+connection_str = 'postgresql://vagrant:vagrant@localhost/restaurant_menu'
 
 
 class Restaurant(Base):
