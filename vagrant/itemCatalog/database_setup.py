@@ -6,6 +6,7 @@ Base = declarative_base()
 
 connection_str = 'postgresql://vagrant:vagrant@locahost/restaurant_menu'
 
+
 class Restaurant(Base):
     __tablename__ = 'restaurant'
     name = Column(Text, nullable=False)
