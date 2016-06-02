@@ -13,7 +13,7 @@ sudo apt-get -qq install postgresql-9.5 postgresql-client-9.5 postgresql-contrib
 sudo -u postgres psql -c "CREATE USER vagrant WITH SUPERUSER CREATEDB ENCRYPTED PASSWORD 'vagrant'"
 #su postgres -c 'createuser -dRS vagrant'
 #su vagrant -c 'createdb'
-#su vagrant -c 'createdb tournament'
+su vagrant -c 'createdb restaurant_menu'
 #su vagrant -c 'psql tournament -f /vagrant/tournament/tournament.sql'
 echo "Changing to dummy password"
 sudo -u postgres psql postgres -c "ALTER USER postgres WITH ENCRYPTED PASSWORD 'postgres'"
