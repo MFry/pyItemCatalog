@@ -8,7 +8,7 @@
     <title>Restaurant List</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,14 +18,26 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
+
+  <div class="container">
+    <div class="jumbotron">
+    <h1> Restaurant List</h1>
+        </div>
+  </div>
+
+  <div class="container">
     {% for r in restaurants %}
-      <a href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>  <br>
-    {% endfor %}
+      <div class="row">
+          <div class="col-md-6"><a href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>
+              <a href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+          </div>
+      </div>
+          {% endfor %}
+  </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   </body>
 </html>
