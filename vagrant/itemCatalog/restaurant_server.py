@@ -5,11 +5,16 @@ from database_setup import connection_str
 
 app = Flask(__name__)
 
+engine = create_engine(connection_str)
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
 
 @app.route('/')
 @app.route('/restaurants/')
 def home():
-    return render_template('restaurants_list.html', restaurants=None)
+    restaurants = session.query().all()
+    return render_template('restaurants_list.html', restaurants=restaurants)
 
 
 def new_restaurant():
