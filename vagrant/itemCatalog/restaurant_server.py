@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import connection_str
+from database_setup import Base, Restaurant, connection_str
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ session = DBSession()
 @app.route('/')
 @app.route('/restaurants/')
 def home():
-    restaurants = session.query().all()
+    restaurants = session.query(Restaurant).all()
     return render_template('restaurants_list.html', restaurants=restaurants)
 
 

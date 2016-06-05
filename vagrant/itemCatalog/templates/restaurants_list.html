@@ -20,11 +20,12 @@
   <body>
     <h1>Hello, world!</h1>
     {% for r in restaurants %}
-      {{r.name}}<br>
+      <a href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>  <br>
     {% endfor %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"></script>
   </body>
 </html>
