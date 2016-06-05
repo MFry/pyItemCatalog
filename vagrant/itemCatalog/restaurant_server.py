@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, connection_str
+from database_setup import Base, Restaurant, Menu, connection_str
 
 app = Flask(__name__)
 
@@ -21,6 +21,7 @@ def new_restaurant():
     return None
 
 
+@app.route('/restaurants/<int:restaurant_id>/edit/')
 def edit_restaurant(restaurant_id):
     return None
 
@@ -31,14 +32,16 @@ def delete_restaurant(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/menu/')
 def menu(restaurant_id):
-    return render_template('menu_list.html')
+    menu = session.query(Menu).filter_by(restaurant_id=restaurant_id)
+    return render_template('menu_list.html', menu=menu, restaurant_id=restaurant_id)
 
 
 def new_menu(restaurant_id):
     return None
 
 
-def update_menu(restaurant_id, menu_id):
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/')
+def edit_menu(restaurant_id, menu_id):
     return None
 
 
