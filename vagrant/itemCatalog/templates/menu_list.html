@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>MenuList</title>
+    <title>Restaurant List</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,11 +18,26 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
 
+  <div class="container">
+    <div class="jumbotron">
+    <h1>Menu List</h1>
+        </div>
+  </div>
+
+  <div class="container">
+    {% for m in menu %}
+      <div class="row">
+          <div class="col-md-6">{{m.name}}
+              <a href="{{ url_for('edit_menu', restaurant_id=restaurant_id, menu_id=m.id) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+          </div>
+      </div>
+          {% endfor %}
+  </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ url_for('static', filename='bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   </body>
 </html>
