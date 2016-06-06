@@ -14,7 +14,9 @@ session = DBSession()
 @app.route('/restaurants/')
 def home():
     restaurants = session.query(Restaurant).all()
-    return render_template('restaurants_list.html', restaurants=restaurants)
+    return render_template('restaurants_list.html',
+                           restaurants=restaurants,
+                           edit_func=edit_restaurant)
 
 
 def new_restaurant():
@@ -23,6 +25,7 @@ def new_restaurant():
 
 @app.route('/restaurants/<int:restaurant_id>/edit/')
 def edit_restaurant(restaurant_id):
+
     return None
 
 
