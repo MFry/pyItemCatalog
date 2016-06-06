@@ -33,7 +33,8 @@ def delete_restaurant(restaurant_id):
 @app.route('/restaurants/<int:restaurant_id>/menu/')
 def menu(restaurant_id):
     menu = session.query(Menu).filter_by(restaurant_id=restaurant_id)
-    return render_template('menu_list.html', menu=menu, restaurant_id=restaurant_id)
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    return render_template('menu_list.html', menu=menu, restaurant=restaurant)
 
 
 def new_menu(restaurant_id):
