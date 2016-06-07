@@ -1,7 +1,7 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, Menu, connection_str
+from database_setup import Restaurant, Menu, connection_str
 
 app = Flask(__name__)
 
@@ -27,6 +27,12 @@ def new_restaurant():
 def edit_restaurant(restaurant_id):
 
     return None
+
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/json/')
+def restaurant_menu_item_JSON(restaurant_id, menu_id):
+    item = session.query(Menu).filter_by(restaurant_id=restaurant_id, id=menu_id).one()
+    return jsonify(MenuItem=item.serialize)
 
 
 def delete_restaurant(restaurant_id):
