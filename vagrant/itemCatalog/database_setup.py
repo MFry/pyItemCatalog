@@ -24,6 +24,17 @@ class Menu(Base):
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
     restaurant = relationship(Restaurant)
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'restaurant_id': self.restaurant_id,
+            'name': self.name,
+            'course': self.course,
+            'description': self.description,
+            'price': self.price,
+        }
+
 
 engine = create_engine(connection_str)
 
