@@ -44,6 +44,8 @@
           <div class="col-xs-3">
               <input type="text" class="form-control" name="name"/>
           </div>
+          <input type="text" style="display: none;" name="menu_id" />
+          <input type="text" style="display: none;" name="restaurant_id"/>
       </div>
   </form>
 
@@ -65,7 +67,23 @@
                   url: './' + menu_id + '/json/',
                   method: 'GET'
               }).success(function (response) {
-                  alert(response['MenuItem']['name']);
+                 $('#edit-menu')
+                         .find('[name="name"]').val(response['MenuItem']['name'])
+                         .find('[name="menu_id"]').val(response['MenuItem']['id'])
+                         .find('[name="restaurant_id"]').val(response['MenuItem']['restaurant_id']);
+
+                  bootbox.dialog({
+                      title: "Edit Menu Item",
+                      message: $('#edit-menu'),
+                      show: true
+                  }).on('hide.bs.modal', function(e) {
+                        // Bootbox will remove the modal (including the body which contains the login form)
+                        // after hiding the modal
+                        // Therefor, we need to backup the form
+                        $('#userForm').hide().appendTo('body');
+                    })
+                    .modal('show');
+
               });
           })
       });
