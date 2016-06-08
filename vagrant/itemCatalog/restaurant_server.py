@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, jsonify
+from flask import Flask, render_template, url_for, jsonify, redirect, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Restaurant, Menu, connection_str
@@ -25,7 +25,6 @@ def new_restaurant():
 
 @app.route('/restaurants/<int:restaurant_id>/edit/')
 def edit_restaurant(restaurant_id):
-
     return None
 
 
@@ -39,9 +38,9 @@ def delete_restaurant(restaurant_id):
     return None
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/')
+@app.route('/restaurants/<int:restaurant_id>/menu/', methods=['POST','GET'])
 def menu(restaurant_id):
-    menu = session.query(Menu).filter_by(restaurant_id=restaurant_id)
+    menu = session.query(Menu).filter_by(restaurant_id=restaurant_id).all()
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     return render_template('menu_list.html', menu=menu, restaurant=restaurant)
 
@@ -50,9 +49,16 @@ def new_menu(restaurant_id):
     return None
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/')
-def edit_menu(restaurant_id, menu_id):
-    return None
+@app.route('/restaurants/<int:restaurant_id>/menu/edit/', methods=['POST'])
+def edit_menu_item(restaurant_id):
+    if request.method == 'POST':
+        menu_id = request.form['menu_id']
+        name = request.form['name']
+        item = session.query(Menu).filter_by(id=menu_id, restaurant_id=restaurant_id).one()
+        item.name = name
+        session.add(item)
+        session.commit()
+    return redirect(url_for('menu', restaurant_id=restaurant_id))
 
 
 def delete_menu_item(restaurant_id, menu_id):
