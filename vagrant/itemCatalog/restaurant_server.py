@@ -40,9 +40,9 @@ def delete_restaurant(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/menu/', methods=['POST','GET'])
 def menu(restaurant_id):
-    menu = session.query(Menu).filter_by(restaurant_id=restaurant_id).all()
+    menu_items = session.query(Menu).filter_by(restaurant_id=restaurant_id).all()
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    return render_template('menu_list.html', menu=menu, restaurant=restaurant)
+    return render_template('menu_list.html', menu=menu_items, restaurant=restaurant)
 
 
 def new_menu(restaurant_id):

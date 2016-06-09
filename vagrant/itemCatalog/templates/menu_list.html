@@ -34,14 +34,14 @@
               </li>
           </ul>
       {% else %}
-    {% for m in menu %}
-      <div class="row">
-          <div class="col-md-6">{{m.name}}
-              <button class="fa fa-pencil-square-o edit-button" data-menu-id="{{ m.id }}"
-                      data-restaurant-id="{{ restaurant.id }}" aria-hidden="true"></button>
+          {% for m in menu %}
+              <div class="row">
+                  <div class="col-md-6">{{ m.name }}
+                      <button class="fa fa-pencil-square-o edit-button" data-menu-id="{{ m.id }}"
+                              data-restaurant-id="{{ restaurant.id }}" aria-hidden="true"></button>
+                  </div>
           </div>
-      </div>
-    {% endfor %}
+          {% endfor %}
       {% endif %}
   </div>
 
