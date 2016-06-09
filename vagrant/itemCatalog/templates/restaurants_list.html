@@ -26,14 +26,22 @@
   </div>
 
   <div class="container">
-    {% for r in restaurants %}
-      <div class="row">
-          <div class="col-md-6">
-              <a  href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>
-              <a href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+    {% if not restaurant %}
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-info">
+              No restaurant present.
+          </li>
+        </ul>
+    {% else %}
+        {% for r in restaurants %}
+          <div class="row">
+              <div class="col-md-6">
+                  <a  href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>
+                  <a href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+              </div>
           </div>
-      </div>
-          {% endfor %}
+        {% endfor %}
+    {% endif %}
   </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
