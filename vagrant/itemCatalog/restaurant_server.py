@@ -45,7 +45,7 @@ def menu(restaurant_id):
     return render_template('menu_list.html', menu=menu_items, restaurant=restaurant)
 
 
-def new_menu(restaurant_id):
+def new_menu_item(restaurant_id):
     return None
 
 
