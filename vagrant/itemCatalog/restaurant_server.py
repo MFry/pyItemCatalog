@@ -38,13 +38,14 @@ def delete_restaurant(restaurant_id):
     return None
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/', methods=['POST','GET'])
+@app.route('/restaurants/<int:restaurant_id>/menu/', methods=['POST', 'GET'])
 def menu(restaurant_id):
     menu_items = session.query(Menu).filter_by(restaurant_id=restaurant_id).all()
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     return render_template('menu_list.html', menu=menu_items, restaurant=restaurant)
 
 
+@app.route('/restaurants/<int:restaurant_id>/menu/add/')
 def new_menu_item(restaurant_id):
     return None
 
