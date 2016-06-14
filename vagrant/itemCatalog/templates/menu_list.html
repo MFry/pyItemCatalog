@@ -45,7 +45,9 @@
       {% endif %}
       <div class="row">
           <div class="col-md-3">
-              <button><span class="glyphicon glyphicon-plus-sign" id="add-new-item" aria-hidden="true"></span> Add new item</button>
+              <button><span class="glyphicon glyphicon-plus-sign" id="add-new-item" aria-hidden="true"
+                            data-restaurant-id="{{ restaurant.id }}"></span> Add new item
+              </button>
           </div>
       </div>
   </div>
@@ -107,7 +109,7 @@
       $(document).ready(function () {
           $('.edit-button').click(function () {
               var menu_id = $(this).attr('data-menu-id');
-              var restaurant_id = $(this).attr('data-restaurant-id')
+              var restaurant_id = $(this).attr('data-restaurant-id');
 
               $.ajax({
                   url: './' + menu_id + '/json/',
@@ -133,6 +135,17 @@
                     })
                     .modal('show');
               });
+          })
+          $('#add-new-item').click(function () {
+              var restaurant_id = $(this).attr('data-restaurant-id');
+
+              $.ajax({
+                  url: '/restaurants/' + restaurant_id + '/menu/add/',
+                  method: 'POST'
+              }).success(function (response) {
+
+              })
+
           })
       });
   </script>

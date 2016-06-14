@@ -47,7 +47,9 @@ def menu(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/menu/add/')
 def new_menu_item(restaurant_id):
-    return None
+    if request.method == 'POST':
+        pass
+    return redirect(url_for('menu', restaurant_id=restaurant_id))
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/edit/', methods=['POST'])
