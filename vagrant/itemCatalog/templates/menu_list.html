@@ -45,8 +45,8 @@
       {% endif %}
       <div class="row">
           <div class="col-md-3">
-              <button><span class="glyphicon glyphicon-plus-sign" id="add-new-item" aria-hidden="true"
-                            data-restaurant-id="{{ restaurant.id }}"></span> Add new item
+              <button id="add-new-item"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"
+                                              data-restaurant-id="{{ restaurant.id }}"></span> Add new item
               </button>
           </div>
       </div>
@@ -60,7 +60,7 @@
               <input type="text" class="form-control" name="name" />
           </div>
       </div>
-      <div clas="form-group">
+      <div class="form-group">
           <label class="col-xs-3 control-label">Description: </label>
           <div class="col-xs-9">
               <input type="text" class="form-control" name="desc"/>
@@ -76,6 +76,11 @@
           <label class="col-xs-3 control-label">Price: </label>
           <div class="col-xs-3">
               <input type="text" class="form-control" name="price" />
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-xs-3 col-xs-offset-9">
+              <button type="submit" class="btn btn-default">Create</button>
           </div>
       </div>
   </form>
@@ -135,18 +140,20 @@
                     })
                     .modal('show');
               });
-          })
+          });
           $('#add-new-item').click(function () {
               var restaurant_id = $(this).attr('data-restaurant-id');
-
-              $.ajax({
-                  url: '/restaurants/' + restaurant_id + '/menu/add/',
-                  method: 'POST'
-              }).success(function (response) {
-
+              bootbox.dialog({
+                  title: "Add New Menu Item",
+                  message: $('#create-new-form'),
+                  show: true,
+              }).on('shown.bs.modal', function () {
+                  $('#create-new-form').show()
+              }).on('hide.bs.modal', function () {
+                  $('#create-new-form').hide().appendTo('body');
               })
-
-          })
+                      .modal('show');
+          });
       });
   </script>
   </body>
