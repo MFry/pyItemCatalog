@@ -45,10 +45,16 @@ def menu(restaurant_id):
     return render_template('menu_list.html', menu=menu_items, restaurant=restaurant)
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/add/')
+@app.route('/restaurants/<int:restaurant_id>/menu/add/', methods=['POST'])
 def new_menu_item(restaurant_id):
     if request.method == 'POST':
-        pass
+        m = Menu(name=request.form['name'],
+                 description=request.form['desc'],
+                 course=request.form['course'],
+                 price=request.form['price'],
+                 restaurant_id=restaurant_id)
+        session.add(m)
+        session.commit()
     return redirect(url_for('menu', restaurant_id=restaurant_id))
 
 
