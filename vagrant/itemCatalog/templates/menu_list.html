@@ -37,8 +37,11 @@
           {% for m in menu %}
               <div class="row">
                   <div class="col-md-6">{{ m.name }}
-                      <button class="fa fa-pencil-square-o edit-button" data-menu-id="{{ m.id }}"
+                      <button class="edit-button fa fa-pencil-square-o btn btn-default" data-menu-id="{{ m.id }}"
                               data-restaurant-id="{{ restaurant.id }}" aria-hidden="true"></button>
+                      <a class="delete-button glyphicon glyphicon-trash btn btn-default"
+                              href="{{ url_for('delete_menu_item', restaurant_id=restaurant.id, menu_id=m.id) }}" >
+                      </a>
                   </div>
           </div>
           {% endfor %}
@@ -46,7 +49,8 @@
       <div class="row">
           <div class="col-md-3">
               <button id="add-new-item"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"
-                                              data-restaurant-id="{{ restaurant.id }}"></span> Add new item
+                                              data-restaurant-id="{{ restaurant.id }}"></span>
+                  Add new item
               </button>
           </div>
       </div>
@@ -141,6 +145,7 @@
                     .modal('show');
               });
           });
+
           $('#add-new-item').click(function () {
               var restaurant_id = $(this).attr('data-restaurant-id');
               bootbox.dialog({
@@ -154,6 +159,7 @@
               })
                       .modal('show');
           });
+
       });
   </script>
   </body>
