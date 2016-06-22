@@ -70,7 +70,7 @@ def edit_menu_item(restaurant_id):
     return redirect(url_for('menu', restaurant_id=restaurant_id))
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET','POST'])
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET', 'POST'])
 def delete_menu_item(restaurant_id, menu_id):
     if request.method == 'POST' or request.method == 'GET':
         m = session.query(Menu).filter_by(restaurant_id=restaurant_id, id=menu_id).one()
