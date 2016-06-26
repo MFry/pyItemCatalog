@@ -19,8 +19,13 @@ def home():
                            edit_func=edit_restaurant)
 
 
+@app.route('/restaurants/new/', methods=['POST'])
 def new_restaurant():
-    return None
+    if request.method == 'POST':
+        r = Restaurant(name='')
+        session.add(r)
+        session.commit()
+    return render_template(url_for('home'))
 
 
 @app.route('/restaurants/<int:restaurant_id>/edit/')
