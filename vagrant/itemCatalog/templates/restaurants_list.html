@@ -37,11 +37,12 @@
           <div class="row">
               <div class="col-md-6">
                   <a  href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>
-                  <a href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+                  <a href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" class="fa fa-pencil-square-o"></a>
               </div>
           </div>
         {% endfor %}
     {% endif %}
+
   </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
