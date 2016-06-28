@@ -42,12 +42,50 @@
           </div>
         {% endfor %}
     {% endif %}
-
+      <div class="row">
+          <div class="col-md-3">
+                <button class="btn btn-default" id="add-new">Add new restaurant</button>
+          </div>
+      </div>
   </div>
+
+  <form id="add-new-form" class="form-horizontal" method="post" action="{{ url_for('new_restaurant') }}" style="display: none;">
+      <div class="form-group">
+          <div class="col-xs-3 control-label">Name</div>
+          <div class="col-xs-5">
+              <input type="text" class="form-control" name="name" />
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-xs-3 col-xs-offset-9">
+              <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+      </div>
+  </form>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
     <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script>
+      $(document).ready( function () {
+
+        $('#add-new').click(function () {
+           bootbox.dialog({
+               title: 'Add New Restaurant',
+               message: $('#add-new-form'),
+               show: true,
+           }).on('shown.bs.modal', function () {
+              $('#add-new-form').show();
+             }).on('hide.bs.modal', function () {
+              $('#add-new-form').hide().appendTo('body');
+             })
+            .modal('show');
+        });
+
+      });
+  </script>
   </body>
 </html>
