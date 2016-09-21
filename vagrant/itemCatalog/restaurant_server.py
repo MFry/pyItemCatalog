@@ -28,9 +28,15 @@ def new_restaurant():
     return render_template(url_for('home'))
 
 
-@app.route('/restaurants/<int:restaurant_id>/edit/')
-def edit_restaurant(restaurant_id):
-    return None
+@app.route('/restaurants/edit/', methods=['POST', 'GET'])
+def edit_restaurant():
+    if request.method == 'POST':
+        id = request.form['id']
+        r = session.query(Restaurant).filter_by(id=id).one()
+        r.name = request.form['name']
+        session.add(r)
+        session.commit()
+    return redirect(url_for('home'))
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/json/')

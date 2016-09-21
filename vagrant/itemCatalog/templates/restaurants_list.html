@@ -37,7 +37,7 @@
           <div class="row">
               <div class="col-md-6">
                   <a  href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>
-                  <a href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" class="fa fa-pencil-square-o"></a>
+                  <button href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" data-restaurant-id="{{ r.id }}" class="edit-restaurant fa fa-pencil-square-o"></button>
               </div>
           </div>
         {% endfor %}
@@ -63,6 +63,23 @@
       </div>
   </form>
 
+  <form id="edit-restaurant-form" method="post"  action="{{ url_for('edit_restaurant') }}"
+        class="form-horizontal" style="display: none;">
+      <div class="form-group">
+          <label class="col-xs-3 control-label">Name</label>
+          <div class="col-xs-5">
+              <input type="text" style="display: none;" name="id" />
+              <input type="text" class="form-control" name="name"/>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-xs-3 col-xs-offset-9">
+              <button type="submit" class="btn btn-default">Update</button>
+          </div>
+      </div>
+  </form>
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -71,6 +88,21 @@
     <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <script>
       $(document).ready( function () {
+        $('.edit-restaurant').click(function () {
+            var restaurant_id = $(this).attr('data-restaurant-id');
+            bootbox.dialog({
+                title: "Edit Restaurant Name",
+                message: $('#edit-restaurant-form'),
+                show: true
+            }).on('shown.bs.modal', function (){
+                $('#edit-restaurant-form')
+                        .show()
+                        .find('[name="id"]').val(restaurant_id).end();
+            }).on('hide.bs.modal', function (){
+                $('#edit-restaurant-form').hide().appendTo('body');
+            }).modal('show');
+
+        });
 
         $('#add-new').click(function () {
            bootbox.dialog({
