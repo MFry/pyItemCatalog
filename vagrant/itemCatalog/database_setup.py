@@ -12,6 +12,8 @@ class Restaurant(Base):
     __tablename__ = 'restaurant'
     name = Column(Text, nullable=False)
     id = Column(Integer, primary_key=True)
+    # Reference: http://stackoverflow.com/a/5034070/1771644
+    menu = relationship('Menu', cascade='all, delete', backref='restaurant')
 
 
 class Menu(Base):
