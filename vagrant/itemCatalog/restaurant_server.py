@@ -29,9 +29,8 @@ def new_restaurant():
 
 
 @app.route('/restaurants/edit/', methods=['POST', 'GET'])
-def edit_restaurant():
+def edit_restaurant(id):
     if request.method == 'POST':
-        id = request.form['id']
         r = session.query(Restaurant).filter_by(id=id).one()
         r.name = request.form['name']
         session.add(r)
@@ -45,8 +44,14 @@ def restaurant_menu_item_JSON(restaurant_id, menu_id):
     return jsonify(MenuItem=item.serialize)
 
 
-def delete_restaurant(restaurant_id):
-    return None
+@app.route('/restaurants/delete/', methods=['POST'])
+def delete_restaurant():
+    if request.method == 'POST':
+        id = request.form['id']
+        r = session.query(Restaurant).filter_by(id=id).one()
+        session.delete(r)
+        session.commit()
+    return redirect(url_for('home'))
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/', methods=['POST', 'GET'])
