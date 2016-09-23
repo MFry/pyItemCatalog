@@ -48,9 +48,9 @@ def edit_restaurant(id):
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/json/')
-def restaurant_menu_item_JSON(restaurant_id, menu_id):
+def restaurant_menu_item_json(restaurant_id, menu_id):
     item = session.query(Menu).filter_by(restaurant_id=restaurant_id, id=menu_id).one()
-    return jsonify(MenuItem=item.serialize)
+    return jsonify(menu_item=item.serialize)
 
 
 @app.route('/restaurants/delete/', methods=['POST'])
@@ -76,7 +76,7 @@ def menu_json(restaurant_id):
     menu_items = []
     for q in m:
         menu_items.append(q.serialize)
-    return jsonify(menu_items)
+    return jsonify(menu_items=menu_items)
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/add/', methods=['POST'])
