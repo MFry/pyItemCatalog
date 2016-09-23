@@ -24,7 +24,6 @@ class Menu(Base):
     description = Column(Text)
     price = Column(String(7))
     restaurant_id = Column(Integer, ForeignKey('restaurant.id'))
-    restaurant = relationship(Restaurant)
 
     @property
     def serialize(self):
