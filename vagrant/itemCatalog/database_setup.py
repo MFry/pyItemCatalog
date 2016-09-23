@@ -15,6 +15,13 @@ class Restaurant(Base):
     # Reference: http://stackoverflow.com/a/5034070/1771644
     menu = relationship('Menu', cascade='all, delete', backref='restaurant')
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
+
 
 class Menu(Base):
     __tablename__ = 'menu'

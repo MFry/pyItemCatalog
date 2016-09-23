@@ -19,6 +19,15 @@ def home():
                            edit_func=edit_restaurant)
 
 
+@app.route('/restaurants/json/')
+def restaurants_json():
+    r = session.query(Restaurant).order_by(Restaurant.id)
+    json_objects = []
+    for q in r:
+        json_objects.append(q.serialize)
+    return jsonify(restaurants=json_objects)
+
+
 @app.route('/restaurants/new/', methods=['POST'])
 def new_restaurant():
     if request.method == 'POST':
@@ -59,6 +68,15 @@ def menu(restaurant_id):
     menu_items = session.query(Menu).filter_by(restaurant_id=restaurant_id).order_by(Menu.id)
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     return render_template('menu_list.html', menu=menu_items, restaurant=restaurant)
+
+
+@app.route('/restaurants/<int:restaurant_id>/menu/json/')
+def menu_json(restaurant_id):
+    m = session.query(Menu).order_by(Menu.id).filter_by(restaurant_id=restaurant_id)
+    menu_items = []
+    for q in m:
+        menu_items.append(q.serialize)
+    return jsonify(menu_items)
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/add/', methods=['POST'])
