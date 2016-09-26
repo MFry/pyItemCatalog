@@ -112,6 +112,17 @@
       </div>
   </form>
 
+  <form id="delete-menu-form" method="post" action="{{ url_for('delete_menu_item', restaurant_id=restarant_id}}"
+        class="form-horizontal" style="display: none;">
+      <div class="form-group">
+        Are you sure you want to delete this item?
+      </div>
+      <div class="form-group">
+          <div class="col-xs-3 col-xs-offset-9">
+              <button type="submit" class="btn btn-default">Update</button>
+          </div>
+      </div>
+  </form>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -150,6 +161,24 @@
                     })
                     .modal('show');
               });
+          });
+
+          $('delete-menu-form').click(function () {
+
+              bootbox.dialog({
+                  title: "Delete confirmation",
+                  message: $('#delete-menu-form'),
+                  show: true,
+
+              }).on('shown.bs.modal', function () {
+                      $('#edit-menu-form')
+                              .show() // Show the form
+              }).on('hide.bs.modal', function (e) {
+                        // Bootbox will remove the modal (including the body which contains the login form)
+                        // after hiding the modal
+                        // Therefor, we need to backup the form
+                      $('#edit-menu-form').hide().appendTo('body');
+                    }).modal('show');
           });
 
           $('#add-new-item').click(function () {
