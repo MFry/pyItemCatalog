@@ -31,10 +31,11 @@ def restaurants_json():
 @app.route('/restaurants/new/', methods=['POST'])
 def new_restaurant():
     if request.method == 'POST':
-        r = Restaurant(name='')
+        name = request.form['name']
+        r = Restaurant(name=name)
         session.add(r)
         session.commit()
-    return render_template(url_for('home'))
+    return redirect(url_for('home'))
 
 
 @app.route('/restaurants/edit/', methods=['POST', 'GET'])
@@ -53,14 +54,13 @@ def restaurant_menu_item_json(restaurant_id, menu_id):
     return jsonify(menu_item=item.serialize)
 
 
-@app.route('/restaurants/delete/', methods=['POST'])
-def delete_restaurant():
+@app.route('/restaurants/<int:restaurant_id>/delete/', methods=['POST', 'GET'])
+def delete_restaurant(restaurant_id):
     if request.method == 'POST':
-        id = request.form['id']
-        r = session.query(Restaurant).filter_by(id=id).one()
+        r = session.query(Restaurant).filter_by(id=restaurant_id).one()
         session.delete(r)
         session.commit()
-    return redirect(url_for('home'))
+    return jsonify({'success': True})
 
 
 @app.route('/restaurants/<int:restaurant_id>/menu/', methods=['POST', 'GET'])
