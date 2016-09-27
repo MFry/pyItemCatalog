@@ -38,9 +38,9 @@ def new_restaurant():
 
 
 @app.route('/restaurants/edit/', methods=['POST', 'GET'])
-def edit_restaurant(id):
+def edit_restaurant(restaurant_id):
     if request.method == 'POST':
-        r = session.query(Restaurant).filter_by(id=id).one()
+        r = session.query(Restaurant).filter_by(id=restaurant_id).one()
         r.name = request.form['name']
         session.add(r)
         session.commit()
@@ -116,6 +116,5 @@ def delete_menu_item(restaurant_id):
 
 if __name__ == '__main__':
     # Developer password
-    app.secret_key = 'super_secret_password'
     app.debug = True
     app.run('0.0.0.0', port=5000)
