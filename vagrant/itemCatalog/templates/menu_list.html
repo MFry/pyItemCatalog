@@ -112,7 +112,7 @@
       </div>
   </form>
 
-  <form id="delete-menu-form" method="post" action="{{ url_for('delete_menu_item', restaurant_id=restarant_id}}"
+  <form id="delete-menu-form" method="post" action="{{ url_for('delete_menu_item', restaurant_id=restaurant.id) }}"
         class="form-horizontal" style="display: none;">
       <div class="form-group">
         Are you sure you want to delete this item?
@@ -128,7 +128,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-    <script src ="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
 
 
   <script>
@@ -164,7 +165,7 @@
           });
 
           $('delete-menu-form').click(function () {
-
+              var menu_id =
               bootbox.dialog({
                   title: "Delete confirmation",
                   message: $('#delete-menu-form'),
