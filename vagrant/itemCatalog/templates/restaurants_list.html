@@ -9,7 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel='stylesheet'>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,6 +26,8 @@
   </div>
 
   <div class="container">
+      <button id='modal-on'>
+      </button>
     {% if not restaurants %}
         <ul class="list-group">
           <li class="list-group-item list-group-item-info">
@@ -38,7 +40,8 @@
               <div class="col-md-6">
                   <a  href="{{ url_for('menu', restaurant_id=r.id) }}">{{r.name}}</a>
                   <button href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" data-restaurant-id="{{ r.id }}" class="edit-restaurant fa fa-pencil-square-o"></button>
-                  <button href="{{ url_for('delete_restaurant', restaurant_id=r.id) }}" class="glyphicon glyphicon-trash"></button>
+                  <button action="{{ url_for('delete_restaurant', restaurant_id=r.id) }}"
+                          class="delete-restaurant glyphicon glyphicon-trash"></button>
               </div>
           </div>
         {% endfor %}
@@ -49,6 +52,16 @@
           </div>
       </div>
   </div>
+
+  <div id="delete-modal" style="display: none;">
+      <div id="delete-form"></div>
+  </div>
+
+
+  <div id="ex-modal" style="display: none;">
+      <div id="ex-form"></div>
+  </div>
+
 
   <form id="add-new-form" class="form-horizontal" method="post" action="{{ url_for('new_restaurant') }}" style="display: none;">
       <div class="form-group">
@@ -86,7 +99,11 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
     <script src ="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.0/handlebars.min.js"></script>
+  <!-- alpaca -->
+  <link type="text/css" href="//code.cloudcms.com/alpaca/1.5.18/bootstrap/alpaca.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="//code.cloudcms.com/alpaca/1.5.18/bootstrap/alpaca.min.js"></script>
   <script>
       $(document).ready( function () {
         $('.edit-restaurant').click(function () {
@@ -104,6 +121,39 @@
             }).modal('show');
 
         });
+
+          $('.delete-restaurant').click(function () {
+
+              bootbox.dialog({
+                  title: "Delete Restaurant",
+                  message: $('#delete-restaurant'),
+                  show: true
+              }).on('shown.bs.modal', function () {
+                  $('#delete-modal').show();
+                  $('#delete-modal').alpaca({
+                      'data': 'test',
+                      'schema': {
+                          'enum': ['yes', 'no']
+                      }
+                  })
+              }).modal('show');
+          });
+
+          $('#modal-on').click(function () {
+              bootbox.dialog({
+                  title: "Alpaca Example",
+                  message: $('#ex-form'),
+                  show: true
+              }).on('shown.bs.modal', function () {
+                  $('#ex-modal').show();
+                  $('#ex-form').alpaca({
+                      'data': 'test',
+                      'schema': {
+                          'enum': ['yes', 'no']
+                      }
+                  });
+              }).modal('show');
+          });
 
         $('#add-new').click(function () {
            bootbox.dialog({
