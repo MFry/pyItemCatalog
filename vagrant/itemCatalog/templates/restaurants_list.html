@@ -122,7 +122,7 @@
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
-            "hideDuration": "1000",
+            "hideDuration": "2000",
             "timeOut": "5000",
             "extendedTimeOut": "1000",
             "showEasing": "swing",
@@ -187,18 +187,34 @@
         });
 
         $('#add-new').click(function () {
-            bootbox.dialog({
+            $.confirm({
                 title: 'Add New Restaurant',
-                message: $('#add-new-form'),
-                show: true,
-            }).on('shown.bs.modal', function () {
-                $('#add-new-form').show();
-            }).on('hide.bs.modal', function () {
-                $('#add-new-form').hide().appendTo('body');
-            })
-                    .modal('show');
-        });
+                theme: 'material',
+                content: '' +
+                '<form id="add-res">    <div class="add-restaurant form-group">' +
+                '<label class="col-xs-3 control-label">Name</label>' +
+                '        <div class="col-xs-5">' +
+                '<input type="text" class="form-control" name="name"/>' +
+                '        </div>' +
+                '</div> </form>',
+                confirm: function () {
+                    $.ajax({
+                        url: '/restaurants/new/',
+                        type: 'POST',
+                        data: $('#add-res').serialize(),
 
+                        success: function (result) {
+                            window.location.reload();
+                            toastr.success('Restaurant Created');
+
+                        }
+                    });
+                },
+                cancel: function () {
+                    toastr.info('Create Cancelled');
+                }
+            });
+        });
     });
 </script>
 </body>

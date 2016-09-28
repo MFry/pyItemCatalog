@@ -35,7 +35,7 @@ def new_restaurant():
         r = Restaurant(name=name)
         session.add(r)
         session.commit()
-    return redirect(url_for('home'))
+    return jsonify({'success': True})
 
 
 @app.route('/restaurants/edit/', methods=['POST', 'GET'])
