@@ -28,25 +28,28 @@
 <div class="container">
     <button id='modal-on'>
     </button>
-    {% if not restaurants %}
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-info">
-                No restaurant present.
-            </li>
-        </ul>
-    {% else %}
-        {% for r in restaurants %}
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="{{ url_for('menu', restaurant_id=r.id) }}">{{ r.name }}</a>
-                    <button href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}" data-restaurant-id="{{ r.id }}"
-                            class="edit-restaurant fa fa-pencil-square-o"></button>
-                    <button data-restaurant-id="{{ r.id }}"
-                            class="delete-restaurant glyphicon glyphicon-trash"></button>
+    <div id="restaurant-content">
+        {% if not restaurants %}
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">
+                    No restaurant present.
+                </li>
+            </ul>
+        {% else %}
+            {% for r in restaurants %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ url_for('menu', restaurant_id=r.id) }}">{{ r.name }}</a>
+                        <button href="{{ url_for('edit_restaurant', restaurant_id=r.id) }}"
+                                data-restaurant-id="{{ r.id }}"
+                                class="edit-restaurant fa fa-pencil-square-o"></button>
+                        <button data-restaurant-id="{{ r.id }}"
+                                class="delete-restaurant glyphicon glyphicon-trash"></button>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
     <div class="row">
         <div class="col-md-3">
             <button class="btn btn-default" id="add-new">Add new restaurant</button>
@@ -157,10 +160,11 @@
                 confirm: function () {
                     $.ajax({
                         url: '/restaurants/' + restaurant + '/delete/',
-                        method: 'POST'
-                    }).success(function (response) {
-                        window.location.reload();
-                        toastr.success('Restaurant Deleted');
+                        type: 'POST',
+                        success: function () {
+                            location.reload();
+                            toastr.success('Restaurant Deleted');
+                        }
 
                     });
                 },
@@ -204,9 +208,8 @@
                         data: $('#add-res').serialize(),
 
                         success: function (result) {
-                            window.location.reload();
-                            toastr.success('Restaurant Created');
-
+                            location.reload();
+                            toastr.success('Added new Restaurant');
                         }
                     });
                 },
