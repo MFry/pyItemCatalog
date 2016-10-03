@@ -117,4 +117,5 @@ def delete_menu_item(restaurant_id):
 if __name__ == '__main__':
     # Developer password
     app.debug = True
+    # app.add_url_rule()
     app.run('0.0.0.0', port=5000)
