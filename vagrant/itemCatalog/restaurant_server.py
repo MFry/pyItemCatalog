@@ -19,7 +19,7 @@ def home():
                            edit_func=edit_restaurant)
 
 
-@app.route('/restaurants/json/')
+@app.route('/restaurants/json/', methods=['GET'])
 def restaurants_json():
     r = session.query(Restaurant).order_by(Restaurant.id)
     json_objects = []
