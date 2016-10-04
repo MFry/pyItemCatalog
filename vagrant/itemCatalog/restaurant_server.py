@@ -28,6 +28,15 @@ def restaurants_json():
     return jsonify(restaurants=json_objects)
 
 
+@app.route('/restaurants/<int:restaurant_id>/json/', methods=['GET'])
+def restaurant_json(restaurant_id):
+    r = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if r:
+        return jsonify(restaurant=r.serialize)
+    else:
+        return None
+
+
 @app.route('/restaurants/new/', methods=['POST'])
 def new_restaurant():
     if request.method == 'POST':
