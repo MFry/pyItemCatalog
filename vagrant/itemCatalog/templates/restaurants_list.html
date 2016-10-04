@@ -165,11 +165,31 @@
             var restaurant_id = $(this).attr('data-restaurant-id');
             $.confirm({
                 title: 'Edit Restaurant',
-                content: '<div id="content-edit"></div>',
-                theme: 'material',
-                contentLoaded: function (data, status, xhr) {
-                    toastr.info('hit');
+                content: function () {
+                    var self = this;
+                    this.$body.append('<div id="content-edit"></div>');
+                    /*
+                     $test = $('#content-edit');
+                     if (jQuery.contains(document, $test[0])){
+                     alert('in Dom');
+                     } else {
+                     alert('not in dom');
+                     }
+                     */
+                    return $.ajax({
+                        url: '/restaurants/' + restaurant_id + '/json/',
+                        method: 'get',
+                    }).done(function (response) {
+                        self.setContent('Description: ' + response.description);
+                        self.setContent(self.content + '<br>Version: ' + response.version); // appending
+                        self.setTitle(response.name);
+                    }).fail(function (response) {
+                        console(response);
+                        self.setContent('Something went wrong.');
+                    });
                 },
+                //content: 'url:'+"{{url_for('static', filename='test.txt')}}",
+                theme: 'material',
                 confirm: function () {
 
                 },
