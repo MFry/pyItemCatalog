@@ -26,8 +26,6 @@
 </div>
 
 <div class="container">
-    <button id='modal-on'>
-    </button>
     <div id="restaurant-content">
         {% if not restaurants %}
         <ul class="list-group">
@@ -115,16 +113,6 @@
 <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css" rel="stylesheet"/>
 <script>
     $(document).ready(function () {
-        if (localStorage.getItem('result')) {
-            switch (localStorage.getItem('result')) {
-                case 'success':
-                    toastr.success(localStorage.getItem('message'));
-                    break;
-
-            }
-            localStorage.clear();
-        }
-
         toastr.options = {
             closeButton: false,
             debug: false,
@@ -143,6 +131,15 @@
             "hideMethod": "fadeOut"
         };
 
+        if (localStorage.getItem('result')) {
+            switch (localStorage.getItem('result')) {
+                case 'success':
+                    toastr.success(localStorage.getItem('message'));
+                    break;
+
+            }
+            localStorage.clear();
+        }
         /*
         $('.edit-restaurant').click(function () {
             var restaurant_id = $(this).attr('data-restaurant-id');
@@ -223,27 +220,11 @@
             })
         });
 
-        $('#modal-on').click(function () {
-            bootbox.dialog({
-                title: "Alpaca Example",
-                message: $('#ex-form'),
-                show: true
-            }).on('shown.bs.modal', function () {
-                $('#ex-modal').show();
-                $('#ex-form').alpaca({
-                    'data': 'test',
-                    'schema': {
-                        'enum': ['yes', 'no']
-                    }
-                });
-            }).modal('show');
-        });
-
         $('#add-new').click(function () {
             $.confirm({
                 title: 'Add New Restaurant',
                 theme: 'material',
-                content: '' +
+                content:
                 '<form id="add-res">    <div class="add-restaurant form-group">' +
                 '<label class="col-xs-3 control-label">Name</label>' +
                 '        <div class="col-xs-5">' +
@@ -256,7 +237,7 @@
                         type: 'POST',
                         data: $('#add-res').serialize(),
 
-                        success: function (result) {
+                        success: function () {
                             localStorage.setItem('result', 'success');
                             localStorage.setItem('message', 'Added new Restaurant');
                             location.reload();
