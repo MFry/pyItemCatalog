@@ -157,14 +157,14 @@
 
          });
          */
-
+        var edit_form;
         $('.edit-restaurant').click(function () {
             var restaurant_id = $(this).attr('data-restaurant-id');
             $.confirm({
                 title: 'Edit Restaurant',
                 content: function () {
                     var self = this;
-                    this.$body.append('<div id="content-edit"></div>');
+                    self.setContent('<div id="content-edit"></div>');
                     /*
                      $test = $('#content-edit');
                      if (jQuery.contains(document, $test[0])){
@@ -173,22 +173,35 @@
                      alert('not in dom');
                      }
                      */
+                    edit_form = $('#content-edit').alpaca({
+                        'schema': {
+                            'type': 'object',
+                            'properties': {
+                                'name': {
+                                    'type': 'string',
+                                    'title': 'Name'
+                                }
+                            }
+                        }
+                    });
                     return $.ajax({
                         url: '/restaurants/' + restaurant_id + '/json/',
-                        method: 'get',
-                    }).done(function (response) {
-                        self.setContent('Description: ' + response.description);
-                        self.setContent(self.content + '<br>Version: ' + response.version); // appending
-                        self.setTitle(response.name);
-                    }).fail(function (response) {
-                        console(response);
+                        method: 'get'
+                    }).success(function (response) {
+                        var t = response;
+                        //hack to keep alpaca rendered
+                        edit_form.postRender();
+
+
+                    }).error(function (response) {
+                        console.log(response);
                         self.setContent('Something went wrong.');
                     });
                 },
                 //content: 'url:'+"{{url_for('static', filename='test.txt')}}",
                 theme: 'material',
                 confirm: function () {
-
+                    toastr.info('Done');
                 },
                 cancel: function () {
                     toastr.info('Delete Cancelled');
