@@ -162,17 +162,9 @@
             var restaurant_id = $(this).attr('data-restaurant-id');
             $.confirm({
                 title: 'Edit Restaurant',
-                content: function () {
+                onOpen: function () {
                     var self = this;
                     self.setContent('<div id="content-edit"></div>');
-                    /*
-                     $test = $('#content-edit');
-                     if (jQuery.contains(document, $test[0])){
-                     alert('in Dom');
-                     } else {
-                     alert('not in dom');
-                     }
-                     */
                     edit_form = $('#content-edit').alpaca({
                         'schema': {
                             'type': 'object',
@@ -184,18 +176,20 @@
                             }
                         }
                     });
+                },
+                content: function () {
                     return $.ajax({
                         url: '/restaurants/' + restaurant_id + '/json/',
                         method: 'get'
                     }).success(function (response) {
                         var t = response;
+                        console.log('success')
                         //hack to keep alpaca rendered
-                        edit_form.postRender();
-
 
                     }).error(function (response) {
                         console.log(response);
-                        self.setContent('Something went wrong.');
+                    }).done(function (data) {
+                        console.log(data);
                     });
                 },
                 //content: 'url:'+"{{url_for('static', filename='test.txt')}}",
