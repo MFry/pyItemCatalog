@@ -206,14 +206,37 @@
   <script type="text/jsx">
       /*** @jsx React.DOM */
 
-      var test = React.createClass({
-          render: function () {
-              return (<h2>Hello, World!</h2>)
+      function MenuItem(props) {
+          return (
+                  <div className="row">
+                      <div className="col-md-6">
+                          {props.name}
+                          <button className="edit-button fa fa-pencil-square-o btn btn-default" data-menu-id={props.id}
+                                  data-restaurant-id={props.id}></button>
+                      </div>
+                  </div>
+          );
+      }
+
+      class MenuList extends React.Component {
+          renderMenuItem() {
+              return (
+                      <MenuItem name="test " id="5"/>
+              );
           }
-      });
+
+          render() {
+              return (
+                      <div>
+                          {this.renderMenuItem()}
+                      </div>
+              );
+          }
+      }
+
 
       ReactDOM.render(
-              React.createElement(test, null),
+              <MenuList />,
               document.getElementById('react-content')
       );
   </script>
