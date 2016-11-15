@@ -27,6 +27,7 @@
 
   <div class="container">
     <h3>Menu List</h3>
+      <div id="react-content"></div>
       {% if not menu %}
           <ul class="list-group">
               <li class="list-group-item list-group-item-info">
@@ -133,15 +134,11 @@
   <!-- react.js -->
   <script src="https://unpkg.com/react@15/dist/react.js"></script>
   <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
 
 
   <script>
       $(document).ready(function () {
-          class MenuList extends React.Component {
-              render() {
-                  return ('');
-              }
-          }
           $('.edit-button').click(function () {
               var menu_id = $(this).attr('data-menu-id');
               var restaurant_id = $(this).attr('data-restaurant-id');
@@ -205,6 +202,20 @@
           });
 
       });
+  </script>
+  <script type="text/jsx">
+      /*** @jsx React.DOM */
+
+      var test = React.createClass({
+          render: function () {
+              return (<h2>Hello, World!</h2>)
+          }
+      });
+
+      ReactDOM.render(
+              React.createElement(test, null),
+              document.getElementById('react-content')
+      );
   </script>
   </body>
 </html>
