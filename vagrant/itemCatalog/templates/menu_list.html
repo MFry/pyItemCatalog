@@ -213,15 +213,22 @@
                           {props.name}
                           <button className="edit-button fa fa-pencil-square-o btn btn-default" data-menu-id={props.id}
                                   data-restaurant-id={props.id}></button>
+                          <button data-restaurant-id={props.id}
+                                  className="delete-restaurant glyphicon glyphicon-trash"></button>
                       </div>
                   </div>
           );
       }
 
       class MenuList extends React.Component {
+          constructor() {
+              super();
+              this.listItems = [{name: 'test', id: 5}]
+
+          }
           renderMenuItem() {
               return (
-                      <MenuItem name="test " id="5"/>
+                      <MenuItem name={this.listItems[0].name} id={this.listItems[0].id}/>
               );
           }
 
