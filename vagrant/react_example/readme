@@ -10,3 +10,9 @@ Setting up react .jsx support in pycharm:
  http://aviadas.com/blog/2015/08/05/evaluating-react-dot-js-and-flask/
  Advanced react concepts
  https://css-tricks.com/learning-react-router/
+
+ React Documentation/Articles
+ State and Lifecycle
+ https://facebook.github.io/react/docs/state-and-lifecycle.html
+ jsx in depth
+ https://facebook.github.io/react/docs/jsx-in-depth.html
