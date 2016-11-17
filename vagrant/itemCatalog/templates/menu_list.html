@@ -223,12 +223,14 @@
       class MenuList extends React.Component {
           constructor() {
               super();
-              this.listItems = [{name: 'test', id: 5}]
+              this.state = {
+                  listItems: [{name: 'test', id: 5}]
+              }
 
           }
           renderMenuItem() {
               return (
-                      <MenuItem name={this.listItems[0].name} id={this.listItems[0].id}/>
+                      <MenuItem name={this.state.listItems[0].name} id={this.state.listItems[0].id}/>
               );
           }
 
@@ -240,7 +242,6 @@
               );
           }
       }
-
 
       ReactDOM.render(
               <MenuList />,
