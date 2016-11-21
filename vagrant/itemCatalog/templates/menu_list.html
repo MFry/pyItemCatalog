@@ -159,7 +159,7 @@
                       show: true,
                   }).on('shown.bs.modal', function () {
                       $('#edit-menu-form')
-                              .show() // Show the form
+                              .show();// Show the form
                   }).on('hide.bs.modal', function (e) {
                         // Bootbox will remove the modal (including the body which contains the login form)
                         // after hiding the modal
@@ -179,7 +179,7 @@
 
               }).on('shown.bs.modal', function () {
                       $('#edit-menu-form')
-                              .show() // Show the form
+                              .show();// Show the form
               }).on('hide.bs.modal', function (e) {
                         // Bootbox will remove the modal (including the body which contains the login form)
                         // after hiding the modal
@@ -198,8 +198,7 @@
                   $('#create-new-form').show()
               }).on('hide.bs.modal', function () {
                   $('#create-new-form').hide().appendTo('body');
-              })
-                      .modal('show');
+              }).modal('show');
           });
 
       });
@@ -239,7 +238,6 @@
               }).catch(function (error) {
                   console.log(error);
               });
-
           }
 
           render() {
