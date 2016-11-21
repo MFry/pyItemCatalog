@@ -228,8 +228,18 @@
           constructor() {
               super();
               this.state = {
-                  listItems: [{name: 'test', id: 5}]
+                  //listItems: [{name: 'test', id: 5}]
+                  listItems: []
               }
+          }
+
+          componentDidMount() {
+              axios.get('').then((response) => {
+                  response.map(data => this.state.listItems.add(data));
+              }).catch(function (error) {
+                  console.log(error);
+              });
+
           }
 
           render() {
