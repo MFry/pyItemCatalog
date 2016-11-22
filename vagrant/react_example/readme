@@ -18,3 +18,5 @@ Setting up react .jsx support in pycharm:
  https://facebook.github.io/react/docs/jsx-in-depth.html
  composition vs inheritance
  https://facebook.github.io/react/docs/composition-vs-inheritance.html
+ Why use key for siblings
+ https://facebook.github.io/react/docs/reconciliation.html
