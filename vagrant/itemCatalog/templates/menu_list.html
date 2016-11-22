@@ -171,7 +171,6 @@
           });
 
           $('delete-menu-form').click(function () {
-              var menu_id =
               bootbox.dialog({
                   title: "Delete confirmation",
                   message: $('#delete-menu-form'),
@@ -238,6 +237,34 @@
               }).catch(function (error) {
                   console.log(error);
               });
+          }
+
+          handleDelete(restaurant_id) {
+              $.confirm({
+                  title: 'Delete Confirmation',
+                  content: 'Are you sure you wish to delete?',
+                  theme: 'material',
+                  confirm: function () {
+                      axios.post('/restaurants/' + restaurant_id + '/delete/', {}).then(
+                              //find ID and set the state to remove the item
+                      ).catch(function (error) {
+                          console.log(error);
+                      });
+                      $.ajax({
+                          url: '/restaurants/' + restaurant + '/delete/',
+                          type: 'POST',
+                          success: function () {
+                              localStorage.setItem('result', 'success');
+                              localStorage.setItem('message', 'Restaurant Deleted');
+                              location.reload();
+                          }
+
+                      });
+                  },
+                  cancel: function () {
+                      toastr.info('Delete Cancelled');
+                  }
+              })
           }
 
           render() {
