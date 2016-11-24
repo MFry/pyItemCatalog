@@ -111,6 +111,67 @@
 <!-- toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.css" rel="stylesheet"/>
+<!-- react.js -->
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<!-- ajax without jquery -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="text/jsx">
+    /*** @jsx React.DOM */
+    //TODO: Implement Browserify
+
+    function restaurant_item(props) {
+        return (
+                <li>
+                    {props.name}
+                </li>
+        );
+    }
+
+    class RestaurantListContainer extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                restaurantItems: [],
+            }
+        }
+
+        componentDidMount() {
+            axios.get('/restaurants/json/').then((response) => {
+                newItems = [];
+                response.map(data => newItems.add(data));
+                this.setState({
+                    restaurantItems: newItems,
+                });
+            }).catch((error)=> {
+                console.log(error);
+            });
+        }
+
+        render() {
+            return (
+                    <RestaurantListContainer />
+            );
+        }
+    }
+
+    class RestaurantListView extends React.Component {
+
+        renderRestaurantItem() {
+
+        }
+
+        render() {
+            return {};
+        }
+
+    }
+
+</script>
+
 <script>
     $(document).ready(function () {
         toastr.options = {
@@ -130,6 +191,7 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         };
+
 
         if (localStorage.getItem('result')) {
             switch (localStorage.getItem('result')) {
