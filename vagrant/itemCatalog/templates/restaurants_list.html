@@ -123,14 +123,6 @@
     /*** @jsx React.DOM */
     //TODO: Implement Browserify
 
-    function restaurantItem(props) {
-        return (
-                <li>
-                    {props.name}
-                </li>
-        );
-    }
-
     class RestaurantListContainer extends React.Component {
 
         constructor() {
@@ -142,10 +134,9 @@
 
         componentDidMount() {
             axios.get('/restaurants/json/').then((response) => {
-                newItems = [];
-                response.map(data => newItems.add(data));
+                console.log(response);
                 this.setState({
-                    restaurantItems: newItems,
+                    restaurantItems: response.data.results,
                 });
             }).catch((error)=> {
                 console.log(error);
@@ -161,20 +152,20 @@
 
     class RestaurantListView extends React.Component {
 
-        renderRestaurantItem(i) {
-            <RestaurantItem name={this.props.restaurants[i].name}/>
+        renderRestaurantItem(restaurant) {
+            return <li>{restaurant.name}</li>
         }
 
         render() {
             return (
                     <ul>
-                        {
-                            Object.keys(this.props.restaurants).map((restaurant)
-                                    => {
-                                this.renderRestaurantItem()
-                            })
-
-                        }
+                        <h3>React Test</h3>
+                        {this.props.restaurants.map(
+                                (restaurant, index) => {
+                                    return (
+                                            this.renderRestaurantItem(restaurant)
+                                    );
+                                })}
                     </ul>
             );
         }
@@ -183,7 +174,7 @@
 
     ReactDOM.render(
             <RestaurantListContainer/>,
-            Document.getElementById('reactTest')
+            document.getElementById('reactTest')
     );
 </script>
 
