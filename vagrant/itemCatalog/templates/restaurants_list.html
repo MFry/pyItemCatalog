@@ -26,6 +26,7 @@
 </div>
 
 <div class="container">
+    <div id="reactTest"></div>
     <div id="restaurant-content">
         {% if not restaurants %}
         <ul class="list-group">
@@ -122,7 +123,7 @@
     /*** @jsx React.DOM */
     //TODO: Implement Browserify
 
-    function restaurant_item(props) {
+    function restaurantItem(props) {
         return (
                 <li>
                     {props.name}
@@ -153,23 +154,37 @@
 
         render() {
             return (
-                    <RestaurantListContainer />
+                    <RestaurantListView restaurants={this.state.restaurantItems}/>
             );
         }
     }
 
     class RestaurantListView extends React.Component {
 
-        renderRestaurantItem() {
-
+        renderRestaurantItem(i) {
+            <RestaurantItem name={this.props.restaurants[i].name}/>
         }
 
         render() {
-            return {};
+            return (
+                    <ul>
+                        {
+                            Object.keys(this.props.restaurants).map((restaurant)
+                                    => {
+                                this.renderRestaurantItem()
+                            })
+
+                        }
+                    </ul>
+            );
         }
 
     }
 
+    ReactDOM.render(
+            <RestaurantListContainer/>,
+            Document.getElementById('reactTest')
+    );
 </script>
 
 <script>
