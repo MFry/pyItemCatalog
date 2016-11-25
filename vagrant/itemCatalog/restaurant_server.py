@@ -25,7 +25,8 @@ def restaurants_json():
     json_objects = []
     for q in r:
         json_objects.append(q.serialize)
-    return jsonify(restaurants=json_objects)
+    print(json_objects)
+    return jsonify(results=json_objects)
 
 
 @app.route('/restaurants/<int:restaurant_id>/json/', methods=['GET'])
