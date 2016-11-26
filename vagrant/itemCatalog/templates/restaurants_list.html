@@ -123,12 +123,18 @@
     /*** @jsx React.DOM */
     //TODO: Implement Browserify
 
-    function restaurantItem(props) {
-        console.log(props);
+    function RestaurantItem(props) {
         return (
-                <li>
-                    {props.name}
+                <li key={props.id}>
+                    {props.name}{" "}
+                    {" "}
+                    <button data-restaurant-id={props.id}
+                            className="edit-restaurant fa fa-pencil-square-o"></button>
+                    {" "}
+                    <button data-restaurant-id={props.id}
+                            className="delete-restaurant glyphicon glyphicon-trash"></button>
                 </li>
+
         );
     }
 
@@ -161,7 +167,7 @@
     class RestaurantListView extends React.Component {
 
         renderRestaurantItem(restaurant) {
-            return <li>{restaurant.name}</li>
+            return <RestaurantItem name={restaurant.name} id={restaurant.id}/>
         }
 
         render() {
