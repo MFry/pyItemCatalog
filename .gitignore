@@ -23,7 +23,7 @@ __pycache__/
 .idea
 
 # Distribution / packaging
-.Python
+.Python/
 env/
 build/
 develop-eggs/
@@ -33,6 +33,7 @@ eggs/
 .eggs/
 lib/
 lib64/
+node_modules/
 parts/
 sdist/
 var/
@@ -75,3 +76,10 @@ target/
 ### Vagrant template
 .vagrant/
 
+vagrant/itemCatalog/static/css/bootstrap-theme.css
+vagrant/itemCatalog/static/css/bootstrap-theme.css.map
+vagrant/itemCatalog/static/css/bootstrap-theme.min.css
+vagrant/itemCatalog/static/css/bootstrap-theme.min.css.map
+vagrant/itemCatalog/static/css/bootstrap.css.map
+vagrant/itemCatalog/static/css/bootstrap.min.css.map
+vagrant/itemCatalog/virtualenv/
