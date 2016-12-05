@@ -1,6 +1,5 @@
 /*** @jsx React.DOM */
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 function RestaurantItem(props) {
     return (
@@ -42,6 +41,7 @@ class RestaurantListContainer extends React.Component {
         );
     }
 }
+export default RestaurantListContainer;
 
 class RestaurantListView extends React.Component {
 
@@ -64,8 +64,3 @@ class RestaurantListView extends React.Component {
     }
 
 }
-
-ReactDOM.render(
-    <RestaurantListContainer/>,
-    document.getElementById('reactTest')
-);
