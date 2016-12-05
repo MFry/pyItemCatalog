@@ -6,19 +6,19 @@
 // @Ref: http://survivejs.com/webpack/advanced-techniques/configuring-react/
 
 module.exports = {
-    entry: `${__dirname}/src/app.js`,
+    entry: `${__dirname}/static/js/restaurant.jsx`,
     output: {
-        path: `${__dirname}/dist`,
-        filename: 'bundle.js'
+        path: `${__dirname}/static/js`,
+        filename: 'restaurants.js'
     },
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel',
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015', 'react']
                 }
             }
         ]
