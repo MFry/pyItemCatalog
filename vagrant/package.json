@@ -15,11 +15,11 @@
     "webpack": "^1.13.3"
   },
   "devDependencies": {
-    "node-check-updates": "*"
+    "npm-check-updates": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Michal Frystacky",
-  "license": "MIT"
+  "license": "MPL 2.0"
 }
