@@ -11,6 +11,9 @@ module.exports = {
         path: `${__dirname}/static/js`,
         filename: 'restaurants.js'
     },
+    resolve: {
+        extensions: ["", ".jsx", ".js"]
+    },
     module: {
         loaders: [
             {
