@@ -1,4 +1,3 @@
-/*** @jsx React.DOM */
 import React from 'react';
 
 function RestaurantItem(props) {
@@ -16,7 +15,7 @@ function RestaurantItem(props) {
     );
 }
 
-class RestaurantListContainer extends React.Component {
+export class RestaurantListContainer extends React.Component {
 
     constructor() {
         super();
@@ -41,7 +40,6 @@ class RestaurantListContainer extends React.Component {
         );
     }
 }
-export default RestaurantListContainer;
 
 class RestaurantListView extends React.Component {
 
