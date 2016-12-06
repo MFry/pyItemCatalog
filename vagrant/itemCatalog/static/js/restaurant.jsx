@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {RestaurantListContainer} from './modules/restaurantList';
 
-
-class App extends React.Component {
-    render() {
-        return <p> Hello React!</p>;
-    }
-}
 
 ReactDOM.render(
-    <App/>,
+    <RestaurantListContainer />,
     document.getElementById('reactTest')
 );
