@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://https://github.com/MFry/pyItemCatalog.git"
+  },
   "dependencies": {
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
