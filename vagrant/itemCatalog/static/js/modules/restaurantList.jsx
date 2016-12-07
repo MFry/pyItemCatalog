@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios'; //jQuery-less ajax
 
 function RestaurantItem(props) {
     return (
