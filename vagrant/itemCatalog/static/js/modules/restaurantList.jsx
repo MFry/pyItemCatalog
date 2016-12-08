@@ -3,7 +3,7 @@ import axios from 'axios'; //jQuery-less ajax
 
 function RestaurantItem(props) {
     return (
-        <li key={props.id}>
+        <li >
             {props.name}{" "}
             {" "}
             <button data-restaurant-id={props.id}
@@ -45,7 +45,7 @@ export class RestaurantListContainer extends React.Component {
 class RestaurantListView extends React.Component {
 
     renderRestaurantItem(restaurant) {
-        return <RestaurantItem name={restaurant.name} id={restaurant.id}/>
+        return <RestaurantItem name={restaurant.name} key={restaurant.id} id={restaurant.id}/>
     }
 
     render() {
