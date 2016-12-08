@@ -14,6 +14,7 @@ module.exports = {
     resolve: {
         extensions: ["", ".jsx", ".js"]
     },
+    externals: ['axios'],
     module: {
         loaders: [
             {
