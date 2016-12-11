@@ -85,4 +85,4 @@ vagrant/itemCatalog/static/css/bootstrap.min.css.map
 vagrant/itemCatalog/virtualenv/
 
 ### Webpack output
-vagrant/itemCatalog/static/js/dist
+vagrant/itemCatalog/static/dist
