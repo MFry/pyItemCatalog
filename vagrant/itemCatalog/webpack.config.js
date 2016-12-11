@@ -8,7 +8,7 @@
 module.exports = {
     entry: `${__dirname}/static/js/restaurant.jsx`,
     output: {
-        path: `${__dirname}/static/js/dist`,
+        path: `${__dirname}/static/dist/js`,
         filename: 'restaurants.js'
     },
     resolve: {
