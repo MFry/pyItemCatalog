@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {RestaurantListContainer} from './modules/restaurantList';
-
+import BodyView from './modules/body';
 
 ReactDOM.render(
-    <RestaurantListContainer />,
+    <BodyView />,
     document.getElementById('reactTest')
 );
