@@ -35,6 +35,10 @@ export class RestaurantListContainer extends React.Component {
         });
     }
 
+    handleClick(restaurant_id) {
+
+    }
+
     render() {
         return (
             <RestaurantListView restaurants={this.state.restaurantItems}/>
