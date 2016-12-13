@@ -20,7 +20,7 @@ function MenuItem(props) {
     );
 }
 
-class MenuListContainer extends React.Component {
+export default class MenuListContainer extends React.Component {
     constructor() {
         super();
         this.state = {
