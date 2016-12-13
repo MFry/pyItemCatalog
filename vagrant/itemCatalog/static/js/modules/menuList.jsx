@@ -21,16 +21,17 @@ function MenuItem(props) {
 }
 
 class MenuListContainer extends React.Component {
-    constructor() {
+    constructor(restaurant_id) {
         super();
         this.state = {
             //listItems: [{name: 'test', id: 5}]
-            listItems: []
+            listItems: [],
+            id: restaurant_id
         }
     }
 
     componentDidMount() {
-        axios.get('/restaurants/4/menu/json').then((response) => {
+        axios.get('/restaurants/' + this.state.id + '/menu/json').then((response) => {
             response.map(data => this.state.listItems.add(data));
         }).catch(function (error) {
             console.log(error);
