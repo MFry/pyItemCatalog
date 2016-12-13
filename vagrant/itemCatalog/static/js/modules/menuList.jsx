@@ -1,7 +1,7 @@
 /*** @jsx React.DOM */
 //TODO: Implement Browserify
-//var React = require('reeact');
-//var axios = require('axios');
+import React from 'react';
+import axios from 'axios';
 
 /**
  * Created by michalfrystacky on 12/3/16.
@@ -21,16 +21,17 @@ function MenuItem(props) {
 }
 
 export default class MenuListContainer extends React.Component {
-    constructor() {
+    constructor(restaurant_id) {
         super();
         this.state = {
             //listItems: [{name: 'test', id: 5}]
-            listItems: []
+            listItems: [],
+            id: restaurant_id
         }
     }
 
     componentDidMount() {
-        axios.get('/restaurants/4/menu/json').then((response) => {
+        axios.get('/restaurants/' + this.state.id + '/menu/json').then((response) => {
             response.map(data => this.state.listItems.add(data));
         }).catch(function (error) {
             console.log(error);
