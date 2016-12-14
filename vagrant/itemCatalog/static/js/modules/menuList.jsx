@@ -49,6 +49,7 @@ export default class MenuListContainer extends React.Component {
                 ).catch(function (error) {
                     console.log(error);
                 });
+                /*
                 $.ajax({
                     url: '/restaurants/' + restaurant + '/delete/',
                     type: 'POST',
@@ -59,6 +60,7 @@ export default class MenuListContainer extends React.Component {
                     }
 
                 });
+                 */
             },
             cancel: function () {
                 toastr.info('Delete Cancelled');
