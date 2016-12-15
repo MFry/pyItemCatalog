@@ -32,3 +32,8 @@ Setting up react .jsx support in pycharm:
 
  React ideas
  https://camjackson.net/post/9-things-every-reactjs-beginner-should-know
+
+
+ Setting up React with webpack
+ http://jpsierens.com/tutorial-react-redux-webpack/
+ http://www.jchapron.com/2015/08/14/getting-started-with-redux/
