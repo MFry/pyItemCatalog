@@ -15,4 +15,4 @@ const reducers = combineReducers({
     content: content_reducer
 });
 
-export const store = createStrore(content_reducer());
+export const store = createStrore(reducers);
