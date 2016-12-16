@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios'; //jQuery-less ajax
+import {connect} from 'react-redux';
 import MenuListContainer from './menuList';
 
 function RestaurantItem(props) {
@@ -17,7 +18,7 @@ function RestaurantItem(props) {
     );
 }
 
-export class RestaurantListContainer extends React.Component {
+class RestaurantListContainer extends React.Component {
 
     constructor() {
         super();
@@ -68,3 +69,11 @@ class RestaurantListView extends React.Component {
     }
 
 }
+
+const mapStateToProps = function (store) {
+    return {
+        content: store.contentState.content
+    }
+};
+
+export default connect(mapStateToProps)(RestaurantListContainer);
