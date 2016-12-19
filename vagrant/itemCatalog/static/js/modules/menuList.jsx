@@ -1,4 +1,3 @@
-/*** @jsx React.DOM */
 //TODO: Implement Browserify
 import React from 'react';
 import axios from 'axios';
