@@ -1,4 +1,4 @@
-import {createStrore, combineReducers} from 'redux';
+import {combineReducers} from 'redux';
 import * as actions from './actions';
 
 //Reducer for content updates
@@ -14,5 +14,3 @@ const content_reducer = function (state = {}, action) => {
 const reducers = combineReducers({
     content: content_reducer
 });
-
-export const store = createStrore(reducers);
