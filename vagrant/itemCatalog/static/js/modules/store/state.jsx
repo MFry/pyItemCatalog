@@ -12,6 +12,8 @@ const content_reducer = function (state = {}, action) => {
     return state;
 };
 
+expect(content_reducer({}, 'DEFAULT')).toEqual({});
+
 const reducers = combineReducers({
     content: content_reducer
 });
