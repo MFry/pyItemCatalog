@@ -6,7 +6,7 @@
 // @Ref: http://survivejs.com/webpack/advanced-techniques/configuring-react/
 
 module.exports = {
-    entry: `${__dirname}/static/js/restaurant.jsx`,
+    entry: `${__dirname}/static/js/modules/main.jsx`,
     output: {
         path: `${__dirname}/static/dist/js`,
         filename: 'restaurants.js'
