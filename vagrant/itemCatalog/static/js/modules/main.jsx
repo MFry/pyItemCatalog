@@ -1,8 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {body_content} from './content';
+import {RestaurantListContainer} from './restaurantList';
 
-render(<body_content />, document.getElementById('reactTest'));
+render(<RestaurantListContainer />, document.getElementById('reactTest'));
 
 //import {configureStore} from './store/configureStore';
 
