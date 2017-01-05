@@ -1,8 +1,12 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {configureStore} from './store/configureStore';
+import {body_content} from './content';
 
-const store = configureStore();
+render(<body_content />, document.getElementById('reactTest'));
+
+//import {configureStore} from './store/configureStore';
+
+/*const store = configureStore();
 
 render(
     <Provider store={store}>
@@ -10,3 +14,4 @@ render(
     </Provider>,
     document.getElementById('root')
 );
+ */
