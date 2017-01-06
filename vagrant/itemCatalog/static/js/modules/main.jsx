@@ -1,9 +1,12 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {body_content} from './content';
+import {content} from './content';
+import configureStore from './store/store';
 import {RestaurantListContainer} from './restaurantList';
 
-render(<RestaurantListContainer />, document.getElementById('reactTest'));
+const store = configureStore();
+//Todo: http://redux.js.org/docs/basics/UsageWithReact.html#passing-the-store
+render(<content value={store.getState()}/>, document.getElementById('reactTest'));
 
 //import {configureStore} from './store/configureStore';
 
