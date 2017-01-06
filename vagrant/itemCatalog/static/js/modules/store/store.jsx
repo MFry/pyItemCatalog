@@ -1,4 +1,9 @@
-import {createStrore} from 'redux';
+import {createStore} from 'redux';
 import {reducers} from './state';
 
-export const store = createStrore(reducers);
+const store = createStore(reducers);
+
+const configureStore = () => store;
+
+
+export default configureStore;
