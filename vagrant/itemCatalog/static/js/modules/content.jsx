@@ -4,8 +4,13 @@
 
 import {RestaurantListContainer} from './restaurantList';
 
+const content = (content) =>
+    (
+        <div>
+            {content}
+        </div>
+    );
 
-export default body_content = RestaurantListContainer;
 /*
  export default class BodyView extends React.Component {
 
