@@ -14,6 +14,8 @@ const content_reducer = function (state = {}, action) => {
 
 expect(content_reducer({}, 'DEFAULT')).toEqual({});
 
+expect(content_reducer({}, {type: 'LOAD_CONTENT', content: 'New'})).toEqual({content: 'New'});
+
 export const reducers = combineReducers({
     content: content_reducer
 });
