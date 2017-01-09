@@ -47,6 +47,10 @@ Setting up react .jsx support in pycharm:
  https://medium.com/@meagle/understanding-87566abcfb7a#.bqxmwaulf
  http://briantroncone.com/?p=529
  http://blog.krawaller.se/posts/exploring-redux-middleware/
+ React tutorials
+ http://redux.js.org/docs/basics/
+ http://redux.js.org/docs/advanced/
+
 
  Video Course
  https://egghead.io/courses/getting-started-with-redux
