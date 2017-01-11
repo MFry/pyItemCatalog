@@ -16,7 +16,12 @@ const content_reducer = (state = {}, action) => {
 //expect(content_reducer({}, 'DEFAULT')).toEqual({});
 expect(true).toEqual(true);
 
-expect(content_reducer({}, {type: 'LOAD_CONTENT', content: 'New'})).toEqual({content: 'New'});
+const contentBefore = {type: 'LOAD_CONTENT', content: 'Body information'};
+const contentAfter = {content: 'Body information'};
+
+expect(content_reducer({}, contentBefore)).toEqual(contentAfter);
+
+deepfreeze(contentBefore);
 
 export const reducers = combineReducers({
     content: content_reducer
