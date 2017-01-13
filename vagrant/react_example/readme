@@ -52,6 +52,9 @@ Setting up react .jsx support in pycharm:
  http://redux.js.org/docs/advanced/
 
 
+Testing React
+https://blog.rescale.com/testing-react-and-flux-applications-with-karma-and-webpack/
+
  Video Course
  https://egghead.io/courses/getting-started-with-redux
  Specifically Middleware
