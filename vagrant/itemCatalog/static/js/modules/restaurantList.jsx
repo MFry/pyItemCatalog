@@ -18,7 +18,7 @@ function RestaurantItem(props) {
     );
 }
 
-class RestaurantListContainer extends React.Component {
+export class RestaurantListContainer extends React.Component {
 
     constructor() {
         super();
