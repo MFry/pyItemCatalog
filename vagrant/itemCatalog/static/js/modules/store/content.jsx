@@ -4,6 +4,14 @@
 
 import {RestaurantListContainer} from './restaurantList';
 
+const content = () => {
+    return (
+        <div>
+            // content
+        </div>
+    );
+};
+
 /*
  export default class BodyView extends React.Component {
 
