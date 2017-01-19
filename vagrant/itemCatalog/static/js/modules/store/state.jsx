@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import * as actions from './actions';
 import expect from 'expect';
+import deepFreeze from 'deep-freeze';
 
 //Reducer for content updates
 
@@ -31,7 +32,8 @@ const contentAfter = {content: 'Body information'};
 
 expect(contentReducer({}, contentBefore)).toEqual(contentAfter);
 
-deepfreeze(contentBefore);
+deepFreeze(contentBefore);
+deepFreeze(contentAfter);
 
 export const reducers = combineReducers({
     content: content,
