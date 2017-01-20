@@ -7,10 +7,12 @@ import {RestaurantListContainer} from './restaurantList';
 const content = () => {
     return (
         <div>
-            // content
+            <RestaurantListContainer />
         </div>
     );
 };
+
+export default content;
 
 /*
  export default class BodyView extends React.Component {
