@@ -4,10 +4,13 @@
 
 import {RestaurantListContainer} from './restaurantList';
 
+//TODO: Link store and render initial content
+RestaurantListContainer();
+
 const content = () => {
     return (
         <div>
-            <RestaurantListContainer />
+
         </div>
     );
 };
