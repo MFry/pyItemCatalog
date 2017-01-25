@@ -70,7 +70,7 @@ const testToggleTodo = () => {
         }
     ];
     const action = {
-        toggle: 'TOGGLE_TODO',
+        type: 'TOGGLE_TODO',
         id: 1
     };
     const stateAfter = [
