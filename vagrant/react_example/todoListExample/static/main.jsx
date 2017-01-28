@@ -3,6 +3,7 @@
  */
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
+import {createStore} from 'redux';
 
 const todo = (state, action) => {
     switch (action.type) {
@@ -24,7 +25,7 @@ const todo = (state, action) => {
         default:
             return state;
     }
-}
+};
 
 const todos = (state = [], action) => {
     switch (action.type) {
@@ -34,7 +35,7 @@ const todos = (state = [], action) => {
                 todo(undefined, action)
             ];
         case 'TOGGLE_TODO':
-            return state.map(todo => todo(t, action));
+            return state.map(t => todo(t, action));
         default:
             return state;
     }
@@ -98,6 +99,40 @@ const testToggleTodo = () => {
 
     expect(todos(stateBefore, action)).toEqual(stateAfter);
 };
+
+const store = createStore(todos);
+console.log('Initial state:');
+console.log(store.getState());
+console.log('--------------');
+
+console.log('Dispatching ADD_TODO.');
+store.dispath({
+    type: 'ADD_TODO',
+    id: 0,
+    text: 'Learn Redux'
+});
+console.log('Current state:');
+console.log(store.getState());
+console.log('--------------');
+
+console.log('Dispatching ADD_TODO.');
+store.dispatch({
+    type: 'ADD_TODO',
+    id: 1,
+    text: 'Go shopping'
+});
+console.log('Current state:');
+console.log(store.getState());
+console.log('--------------');
+
+console.log('Dispatching TOGGLE_TODO.');
+store.dispatch({
+    type: 'TOGGLE_TODO',
+    id: 0
+});
+console.log('Current state:');
+console.log(store.getState());
+console.log('--------------');
 
 testAddTodo();
 testToggleTodo();
