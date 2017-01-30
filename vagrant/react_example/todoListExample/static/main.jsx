@@ -3,7 +3,7 @@
  */
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
 
 const todo = (state, action) => {
     switch (action.type) {
@@ -50,7 +50,7 @@ const visibilityFilter = (state = 'SHOW_ALL',
             return state;
     }
 };
-
+/*
 const todoApp = (state = {}, action) => {
     return {
         todos: todo(
@@ -63,6 +63,11 @@ const todoApp = (state = {}, action) => {
         )
     };
 };
+ */
+const todoApp = combineReducers({
+    todos: todos,
+    visibilityFilter: visibilityFilter
+});
 
 
 const testAddTodo = () => {
