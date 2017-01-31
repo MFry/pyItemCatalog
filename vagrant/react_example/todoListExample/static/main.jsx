@@ -53,7 +53,7 @@ const visibilityFilter = (state = 'SHOW_ALL',
 /*
 const todoApp = (state = {}, action) => {
     return {
-        todos: todo(
+ todos: todos(
             state.todo,
             action
         ),
