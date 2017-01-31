@@ -4,6 +4,8 @@
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
 import {createStore, combineReducers} from 'redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const todo = (state, action) => {
     switch (action.type) {
@@ -85,7 +87,47 @@ const todoApp = combineReducers({
     visibilityFilter
 });
 
+const store = createStore(todoApp);
 
+let nextToDoId = 0;
+class TodoApp extends React.Component {
+    render() {
+        return (
+            <div>
+                <button onClick={() => {
+                    store.dispatch({
+                        type: 'ADD_TODO',
+                        text: 'Test',
+                        id: nextToDoId++
+                    });
+                }}>
+                    Add Todo
+                </button>
+                {this.props.todos.map(todo =>
+                    <ul>
+                        <li key={todo.id}>
+                            {todo.text}
+                        </li>
+                    </ul>
+                )}
+            </div>
+        );
+    }
+}
+
+const render = () => {
+    ReactDOM.render(
+        <TodoApp
+            todos={store.getState().todos}
+        />,
+        document.getElementById('root')
+    );
+};
+
+store.subscribe(render);
+render();
+
+/* testing
 const testAddTodo = () => {
     const stateBefore = [];
     const action = {
@@ -145,7 +187,6 @@ const testToggleTodo = () => {
     expect(todos(stateBefore, action)).toEqual(stateAfter);
 };
 
-const store = createStore(todoApp);
 console.log('Initial state:');
 console.log(store.getState());
 console.log('--------------');
@@ -191,3 +232,4 @@ console.log('--------------');
 testAddTodo();
 testToggleTodo();
 console.log('All tests passed.');
+ */
