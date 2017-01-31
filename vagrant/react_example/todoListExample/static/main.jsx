@@ -65,8 +65,8 @@ const todoApp = (state = {}, action) => {
 };
  */
 const todoApp = combineReducers({
-    todos: todos,
-    visibilityFilter: visibilityFilter
+    todos,
+    visibilityFilter
 });
 
 
