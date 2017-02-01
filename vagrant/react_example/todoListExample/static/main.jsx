@@ -94,12 +94,17 @@ class TodoApp extends React.Component {
     render() {
         return (
             <div>
+                <input ref={node => {
+                    this.input = node;
+                }
+                }/>
                 <button onClick={() => {
                     store.dispatch({
                         type: 'ADD_TODO',
-                        text: 'Test',
+                        text: this.input.value,
                         id: nextToDoId++
                     });
+                    this.input.value = '';
                 }}>
                     Add Todo
                 </button>
