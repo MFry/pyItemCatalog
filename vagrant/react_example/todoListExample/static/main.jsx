@@ -108,13 +108,14 @@ class TodoApp extends React.Component {
                 }}>
                     Add Todo
                 </button>
-                {this.props.todos.map(todo =>
-                    <ul>
+                <ul>
+                    {this.props.todos.map(todo =>
+
                         <li key={todo.id}>
                             {todo.text}
                         </li>
-                    </ul>
-                )}
+                    )}
+                </ul>
             </div>
         );
     }
