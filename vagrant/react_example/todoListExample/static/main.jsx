@@ -89,6 +89,26 @@ const todoApp = combineReducers({
 
 const store = createStore(todoApp);
 
+const FilterLink = ({
+    filter,
+    children
+}) => {
+    return (
+        <a href="#"
+           onClick={e => {
+               e.preventDefault();
+               store.dispatch({
+                   type: 'SET_VISIBILITY_FILTER',
+                   filter
+               });
+           }}
+        >
+            {children}
+        </a>
+
+    );
+};
+
 let nextToDoId = 0;
 class TodoApp extends React.Component {
     render() {
@@ -124,6 +144,25 @@ class TodoApp extends React.Component {
                         </li>
                     )}
                 </ul>
+                <p>
+                    Show:
+                    {' '}
+                    <FilterLink
+                        filter="SHOW_ALL">
+                        All
+                    </FilterLink>
+                    {' '}
+                    <FilterLink
+                        filter="SHOW_ACTIVE">
+                        Active
+                    </FilterLink>
+                    {' '}
+                    <FilterLink
+                        filter="SHOW_COMPLETED">
+                        Completed
+                    </FilterLink>
+                    {' '}
+                </p>
             </div>
         );
     }
