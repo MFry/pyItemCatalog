@@ -161,7 +161,6 @@ class TodoApp extends React.Component {
                         filter="SHOW_COMPLETED">
                         Completed
                     </FilterLink>
-                    {' '}
                 </p>
             </div>
         );
