@@ -129,6 +129,23 @@ const FilterLink = ({
     );
 };
 
+const FilterLinks = ({
+    filters
+}) => {
+    return (
+        <p>
+            {filters.map(f => {
+                return (
+                    <FilterLink
+                        filter={f[0]}>
+                        {f[1]}
+                    </FilterLink>
+                );
+            })}
+        </p>
+    );
+};
+
 let nextToDoId = 0;
 class TodoApp extends React.Component {
     render() {
@@ -136,6 +153,7 @@ class TodoApp extends React.Component {
             this.props.todos,
             this.props.visibilityFilter
         );
+        const filters = [["SHOW_ALL", 'All'], ["SHOW_ACTIVE", 'Active'], ["SHOW_COMPLETED", 'Completed']];
         return (
             <div>
                 <input ref={node => {
@@ -168,24 +186,9 @@ class TodoApp extends React.Component {
                         </li>
                     )}
                 </ul>
-                <p>
                     Show:
-                    {' '}
-                    <FilterLink
-                        filter="SHOW_ALL">
-                        All
-                    </FilterLink>
-                    {' '}
-                    <FilterLink
-                        filter="SHOW_ACTIVE">
-                        Active
-                    </FilterLink>
-                    {' '}
-                    <FilterLink
-                        filter="SHOW_COMPLETED">
-                        Completed
-                    </FilterLink>
-                </p>
+                <FilterLinks filters={filters}/>
+
             </div>
         );
     }
