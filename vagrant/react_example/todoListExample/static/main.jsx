@@ -149,9 +149,13 @@ const FilterLinks = ({
 let nextToDoId = 0;
 class TodoApp extends React.Component {
     render() {
+        const {
+            todos,
+            visibilityFilter
+        } = this.props;
         const visibileTodos = getVisibleTodos(
-            this.props.todos,
-            this.props.visibilityFilter
+            todos,
+            visibilityFilter
         );
         const filters = [["SHOW_ALL", 'All'], ["SHOW_ACTIVE", 'Active'], ["SHOW_COMPLETED", 'Completed']];
         return (
