@@ -153,7 +153,7 @@ class TodoApp extends React.Component {
             todos,
             visibilityFilter
         } = this.props;
-        const visibileTodos = getVisibleTodos(
+        const visibleTodos = getVisibleTodos(
             todos,
             visibilityFilter
         );
@@ -174,7 +174,7 @@ class TodoApp extends React.Component {
                     Add Todo
                 </button>
                 <ul>
-                    {visibileTodos.map(todo =>
+                    {visibleTodos.map(todo =>
 
                         <li key={todo.id}
                             onClick={ () => {
