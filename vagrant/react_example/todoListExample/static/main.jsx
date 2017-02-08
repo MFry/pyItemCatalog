@@ -115,7 +115,7 @@ const FilterLink = ({
     children
 }) => {
     if (filter === currentFilter) {
-        return <span>{children}</span>;
+        return <span>{children}, </span>;
     }
 
     return (
@@ -128,7 +128,7 @@ const FilterLink = ({
                });
            }}
         >
-            {children}
+            {children},
         </a>
 
     );
