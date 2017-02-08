@@ -111,8 +111,13 @@ const getVisibleTodos = (
 
 const FilterLink = ({
     filter,
+    currentFilter,
     children
 }) => {
+    if (filter === currentFilter) {
+        return <span>{children}</span>;
+    }
+
     return (
         <a href="#"
            onClick={e => {
@@ -130,15 +135,19 @@ const FilterLink = ({
 };
 
 const FilterLinks = ({
-    filters
+    filters,
+    currentFilter
 }) => {
     return (
         <p>
             {filters.map(f => {
                 return (
                     <FilterLink
-                        filter={f[0]}>
+                        filter={f[0]}
+                        currentFilter={currentFilter}
+                    >
                         {f[1]}
+
                     </FilterLink>
                 );
             })}
@@ -191,7 +200,7 @@ class TodoApp extends React.Component {
                     )}
                 </ul>
                     Show:
-                <FilterLinks filters={filters}/>
+                <FilterLinks filters={filters} currentFilter={visibilityFilter}/>
 
             </div>
         );
