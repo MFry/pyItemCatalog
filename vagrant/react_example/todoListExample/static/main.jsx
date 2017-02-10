@@ -115,7 +115,7 @@ const FilterLink = ({
     children
 }) => {
     if (filter === currentFilter) {
-        return <span>{children}, </span>;
+        return <span>{children}</span>;
     }
 
     return (
@@ -128,7 +128,7 @@ const FilterLink = ({
                });
            }}
         >
-            {children},
+            {children}
         </a>
 
     );
@@ -140,7 +140,7 @@ const FilterLinks = ({
 }) => {
     return (
         <p>
-            {filters.map(f => {
+            {(filters.map(f => {
                 return (
                     <FilterLink
                         filter={f[0]}
@@ -149,6 +149,13 @@ const FilterLinks = ({
                         {f[1]}
 
                     </FilterLink>
+                );
+            })).map(FilterLink => {
+                return (
+                    <span>
+                      {' '}
+                        {FilterLink}
+                  </span>
                 );
             })}
         </p>
