@@ -192,6 +192,26 @@ const TodoList = ({
     </ul>
 );
 
+const AddTodo = ({
+    onAddClick
+}) => {
+    let input;
+
+    return (
+        <div>
+            <input ref={node => {
+                input = node;
+            }}/>
+            <button onClick={() => {
+                onAddClick(input.value);
+                input.value = '';
+            }}>
+                Add Todo
+            </button>
+        </div>
+    );
+};
+
 let nextToDoId = 0;
 class TodoApp extends React.Component {
     render() {
@@ -206,19 +226,15 @@ class TodoApp extends React.Component {
         const filters = [["SHOW_ALL", 'All'], ["SHOW_ACTIVE", 'Active'], ["SHOW_COMPLETED", 'Completed']];
         return (
             <div>
-                <input ref={node => {
-                    this.input = node;
-                }}/>
-                <button onClick={() => {
-                    store.dispatch({
-                        type: 'ADD_TODO',
-                        text: this.input.value,
-                        id: nextToDoId++
-                    });
-                    this.input.value = '';
-                }}>
-                    Add Todo
-                </button>
+                <AddTodo
+                    onAddClick={text =>
+                        store.dispatch({
+                            type: 'ADD_TODO',
+                            text: input.value,
+                            id: nextToDoId++
+                        })
+                    }
+                />
                 <TodoList
                     todos={visibleTodos}
                     onTodoClick={id =>
