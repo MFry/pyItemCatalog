@@ -112,7 +112,8 @@ const getVisibleTodos = (
 const FilterLink = ({
     filter,
     currentFilter,
-    children
+    children,
+    onClickCall
 }) => {
     if (filter === currentFilter) {
         return <span>{children}</span>;
@@ -122,10 +123,7 @@ const FilterLink = ({
         <a href="#"
            onClick={e => {
                e.preventDefault();
-               store.dispatch({
-                   type: 'SET_VISIBILITY_FILTER',
-                   filter
-               });
+               onClickCall(filter);
            }}
         >
             {children}
@@ -209,6 +207,16 @@ const AddTodo = ({
                 Add Todo
             </button>
         </div>
+    );
+};
+
+const footer = ({
+    visibilityFilter
+}) => {
+    return (
+        <p>
+
+        </p>
     );
 };
 
