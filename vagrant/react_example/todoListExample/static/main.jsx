@@ -210,12 +210,13 @@ const AddTodo = ({
     );
 };
 
-const footer = ({
+const Footer = ({
     visibilityFilter
 }) => {
     return (
         <p>
-
+            Show:
+            <FilterLinks filters={filters} currentFilter={visibilityFilter}/>
         </p>
     );
 };
@@ -252,9 +253,7 @@ class TodoApp extends React.Component {
                         })
                     }
                 />
-                    Show:
-                <FilterLinks filters={filters} currentFilter={visibilityFilter}/>
-
+                <Footer visibilityFilter=visibilityFilter/>
             </div>
         );
     }
