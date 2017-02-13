@@ -211,6 +211,7 @@ const AddTodo = ({
 };
 
 const Footer = ({
+    filters,
     visibilityFilter
 }) => {
     return (
@@ -253,7 +254,7 @@ class TodoApp extends React.Component {
                         })
                     }
                 />
-                <Footer visibilityFilter=visibilityFilter/>
+                <Footer filters=filters visibilityFilter=visibilityFilter/>
             </div>
         );
     }
