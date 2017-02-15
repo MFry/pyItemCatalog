@@ -134,6 +134,7 @@ const FilterLink = ({
 
 const FilterLinks = ({
     filters,
+    onFilterClick,
     currentFilter
 }) => {
     return (
@@ -143,6 +144,7 @@ const FilterLinks = ({
                     <FilterLink
                         filter={f[0]}
                         currentFilter={currentFilter}
+                        onClick={onFilterClick}
                     >
                         {f[1]}
 
@@ -212,12 +214,16 @@ const AddTodo = ({
 
 const Footer = ({
     filters,
-    visibilityFilter
+    visibilityFilter,
+    onFilterClick
 }) => {
     return (
         <p>
             Show:
-            <FilterLinks filters={filters} currentFilter={visibilityFilter}/>
+            <FilterLinks filters={filters}
+                         currentFilter={visibilityFilter}
+                         onFilterClick={onFilterClick}
+            />
         </p>
     );
 };
@@ -254,7 +260,17 @@ class TodoApp extends React.Component {
                         })
                     }
                 />
-                <Footer filters=filters visibilityFilter=visibilityFilter/>
+                <Footer
+                    filters=filters
+                    visibilityFilter=visibilityFilter
+                    onFilterClick={ filter =>
+                        store.dispatch({
+                            type: 'SET_VISIBILITY_FILTER',
+                            filter
+                        })
+
+                    }
+                />
             </div>
         );
     }
