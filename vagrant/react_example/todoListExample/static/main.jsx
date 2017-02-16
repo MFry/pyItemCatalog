@@ -139,14 +139,14 @@ const FilterLinks = ({
 }) => {
     return (
         <p>
-            {(filters.map(f => {
+            {(filters.map(filter => {
                 return (
                     <FilterLink
-                        filter={f[0]}
+                        filter={filter[0]}
                         currentFilter={currentFilter}
                         onClick={onFilterClick}
                     >
-                        {f[1]}
+                        {filter[1]}
 
                     </FilterLink>
                 );
