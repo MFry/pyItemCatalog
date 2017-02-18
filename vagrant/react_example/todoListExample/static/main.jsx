@@ -1,11 +1,11 @@
 /**
  * Created by michalfrystacky on 1/22/17.
  */
-import expect from 'expect';
-import deepFreeze from 'deep-freeze';
-import {createStore, combineReducers} from 'redux';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import expect from "expect";
+import deepFreeze from "deep-freeze";
+import {createStore, combineReducers} from "redux";
+import React from "react";
+import ReactDOM from "react-dom";
 
 const todo = (state, action) => {
     switch (action.type) {
