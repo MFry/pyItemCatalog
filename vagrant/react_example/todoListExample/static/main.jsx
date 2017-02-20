@@ -213,9 +213,6 @@ const AddTodo = ({
 };
 
 const Footer = ({
-    filters,
-    visibilityFilter,
-    onFilterClick
 }) => {
     return (
         <p>
@@ -229,6 +226,7 @@ const Footer = ({
 };
 
 let nextToDoId = 0;
+
 const TodoApp = ({
     todos,
     visibilityFilter
@@ -256,17 +254,7 @@ const TodoApp = ({
                         })
                     }
                 />
-                <Footer
-                    filters={[["SHOW_ALL", 'All'], ["SHOW_ACTIVE", 'Active'], ["SHOW_COMPLETED", 'Completed']]}
-                    visibilityFilter=visibilityFilter
-                    onFilterClick={ filter =>
-                        store.dispatch({
-                            type: 'SET_VISIBILITY_FILTER',
-                            filter
-                        })
-
-                    }
-                />
+                <Footer />
             </div>
         );
 };
