@@ -109,13 +109,12 @@ const getVisibleTodos = (
   }
 };
 
-const FilterLink = ({
-    filter,
-    currentFilter,
+const Link = ({
+    active,
     children,
-    onClickCall
+    onClick
 }) => {
-    if (filter === currentFilter) {
+    if (active) {
         return <span>{children}</span>;
     }
 
@@ -123,7 +122,7 @@ const FilterLink = ({
         <a href="#"
            onClick={e => {
                e.preventDefault();
-               onClickCall(filter);
+               onClick();
            }}
         >
             {children}
@@ -132,32 +131,64 @@ const FilterLink = ({
     );
 };
 
-const FilterLinks = ({
-    filters,
-    onFilterClick,
-    currentFilter
+class FilterLink extends Component {
+    componentDidMount() {
+        this.unsubscribe = store.subscribe(() =>
+            this.forceUpdate()
+        );
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    render() {
+        const props = this.props;
+        const state = store.getState();
+
+        return (
+            <Link
+                active={
+                    props.filter ===
+                    state.visibilityFilter
+                }
+                onClick={() =>
+                    store.dispatch({
+                        type: 'SET_VISIBILITY_FILTER',
+                        filter: props.filter
+                    })
+                }
+            >
+                {props.children}
+            </Link>
+        );
+    }
+}
+
+const Footer = ({
 }) => {
     return (
         <p>
-            {(filters.map(filter => {
-                return (
-                    <FilterLink
-                        filter={filter[0]}
-                        currentFilter={currentFilter}
-                        onClick={onFilterClick}
-                    >
-                        {filter[1]}
+            Show:
+            {' '}
+            <FilterLink
+                filter="SHOW_ALL"
+            >
+                All
+            </FilterLink>
+            {', '}
+            <FilterLink
+                filter="SHOW_ACTIVE"
+            >
+                Active
+            </FilterLink>
+            {', '}
+            <FilterLink
+                filter="SHOW_COMPLETED"
+            >
+                Completed
+            </FilterLink>
 
-                    </FilterLink>
-                );
-            })).map(FilterLink => {
-                return (
-                    <span>
-                      {' '}
-                        {FilterLink}
-                  </span>
-                );
-            })}
         </p>
     );
 };
@@ -209,19 +240,6 @@ const AddTodo = ({
                 Add Todo
             </button>
         </div>
-    );
-};
-
-const Footer = ({
-}) => {
-    return (
-        <p>
-            Show:
-            <FilterLinks filters={filters}
-                         currentFilter={visibilityFilter}
-                         onFilterClick={onFilterClick}
-            />
-        </p>
     );
 };
 
