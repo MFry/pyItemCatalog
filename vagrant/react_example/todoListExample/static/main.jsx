@@ -223,9 +223,7 @@ const TodoList = ({
     </ul>
 );
 
-const AddTodo = ({
-    onAddClick
-}) => {
+const AddTodo = () => {
     let input;
 
     return (
@@ -234,7 +232,11 @@ const AddTodo = ({
                 input = node;
             }}/>
             <button onClick={() => {
-                onAddClick(input.value);
+                store.dispatch({
+                    type: 'ADD_TODO',
+                    text: input.value,
+                    id: nextToDoId++
+                });
                 input.value = '';
             }}>
                 Add Todo
@@ -280,21 +282,10 @@ class VisibleTodoList extends Component {
 
 let nextToDoId = 0;
 
-const TodoApp = ({
-    todos,
-    visibilityFilter
-}) => {
+const TodoApp = () => {
         return (
             <div>
-                <AddTodo
-                    onAddClick={text =>
-                        store.dispatch({
-                            type: 'ADD_TODO',
-                            text: input.value,
-                            id: nextToDoId++
-                        })
-                    }
-                />
+                <AddTodo />
                 <VisibleTodoList />
                 <Footer />
             </div>
