@@ -292,17 +292,13 @@ const TodoApp = () => {
         );
 };
 
-const render = () => {
-    ReactDOM.render(
-        <TodoApp
-            {...store.getState()}
-        />,
-        document.getElementById('root')
-    );
-};
+ReactDOM.render(
+    <TodoApp
+        {...store.getState()}
+    />,
+    document.getElementById('root')
+);
 
-store.subscribe(render);
-render();
 
 /* testing
 const testAddTodo = () => {
