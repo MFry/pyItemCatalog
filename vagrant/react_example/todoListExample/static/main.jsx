@@ -3,7 +3,7 @@
  */
 import expect from "expect";
 import deepFreeze from "deep-freeze";
-import {createStore, combineReducers} from "redux";
+import {combineReducers} from "redux";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -87,8 +87,6 @@ const todoApp = combineReducers({
     visibilityFilter
 });
 
-const store = createStore(todoApp);
-
 const getVisibleTodos = (
     todos,
     filter
@@ -133,6 +131,7 @@ const Link = ({
 
 class FilterLink extends Component {
     componentDidMount() {
+        const {store} = this.props;
         this.unsubscribe = store.subscribe(() =>
             this.forceUpdate()
         );
@@ -144,6 +143,7 @@ class FilterLink extends Component {
 
     render() {
         const props = this.props;
+        const {store} = props;
         const state = store.getState();
 
         return (
@@ -165,26 +165,28 @@ class FilterLink extends Component {
     }
 }
 
-const Footer = ({
-}) => {
+const Footer = ({store}) => {
     return (
         <p>
             Show:
             {' '}
             <FilterLink
                 filter="SHOW_ALL"
+                store={store}
             >
                 All
             </FilterLink>
             {', '}
             <FilterLink
                 filter="SHOW_ACTIVE"
+                store={store}
             >
                 Active
             </FilterLink>
             {', '}
             <FilterLink
                 filter="SHOW_COMPLETED"
+                store={store}
             >
                 Completed
             </FilterLink>
@@ -223,7 +225,7 @@ const TodoList = ({
     </ul>
 );
 
-const AddTodo = () => {
+const AddTodo = ({store}) => {
     let input;
 
     return (
@@ -247,6 +249,7 @@ const AddTodo = () => {
 
 class VisibleTodoList extends Component {
     componentDidMount() {
+        const {store} = this.props;
         this.unsubscribe = store.subscribe(() =>
             this.forceUpdate()
         );
@@ -258,6 +261,7 @@ class VisibleTodoList extends Component {
 
     render() {
         const props = this.props;
+        const {store} = props;
         const state = store.getState();
 
         return (
@@ -282,20 +286,20 @@ class VisibleTodoList extends Component {
 
 let nextToDoId = 0;
 
-const TodoApp = () => {
+const TodoApp = ({store}) => {
         return (
             <div>
-                <AddTodo />
-                <VisibleTodoList />
-                <Footer />
+                <AddTodo store={store}/>
+                <VisibleTodoList store={store}/>
+                <Footer store={store}/>
             </div>
         );
 };
 
+import {createStore} from "redux";
+
 ReactDOM.render(
-    <TodoApp
-        {...store.getState()}
-    />,
+    <TodoApp store={createStore(todoApp)}/>,
     document.getElementById('root')
 );
 
