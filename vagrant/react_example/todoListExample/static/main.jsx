@@ -296,10 +296,24 @@ const TodoApp = ({store}) => {
         );
 };
 
+class Provider extends Component {
+    getChildContext() {
+        return {
+            store: this.props.store
+        };
+    }
+
+    render() {
+        return this.props.children;
+    }
+}
+
 import {createStore} from "redux";
 
 ReactDOM.render(
-    <TodoApp store={createStore(todoApp)}/>,
+    <Provider store={createStore(todoApp)}>
+        <TodoApp />
+    </Provider>,
     document.getElementById('root')
 );
 
