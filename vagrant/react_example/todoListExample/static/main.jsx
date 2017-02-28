@@ -302,22 +302,7 @@ const TodoApp = () => {
         );
 };
 
-class Provider extends Component {
-    getChildContext() {
-        return {
-            store: this.props.store
-        };
-    }
-
-    render() {
-        return this.props.children;
-    }
-}
-Provider.childContextTypes = {
-    store: React.PropTypes.object
-};
-
-
+import {Provider} from 'react-redux';
 import {createStore} from "redux";
 
 ReactDOM.render(
