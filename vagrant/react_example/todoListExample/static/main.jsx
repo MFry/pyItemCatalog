@@ -225,7 +225,7 @@ const TodoList = ({
     </ul>
 );
 
-const AddTodo = (props, {store}) => {
+let AddTodo = ({dispatch}) => {
     let input;
 
     return (
@@ -234,7 +234,7 @@ const AddTodo = (props, {store}) => {
                 input = node;
             }}/>
             <button onClick={() => {
-                store.dispatch({
+                dispatch({
                     type: 'ADD_TODO',
                     text: input.value,
                     id: nextToDoId++
@@ -246,9 +246,14 @@ const AddTodo = (props, {store}) => {
         </div>
     );
 };
-AddTodo.contextTypes = {
-    store: React.PropTypes.object
-};
+AddTodo = connect(
+    state => {
+        return {};
+    },
+    dispatch => {
+        return {dispatch};
+    }
+)(AddTodo);
 
 const mapStateToProps = (state) => {
     return {
@@ -258,7 +263,6 @@ const mapStateToProps = (state) => {
         )
     };
 };
-
 const mapDispatchToProps = (dispatch) => {
     return {
         onTodoClick: (id) => {
@@ -269,7 +273,6 @@ const mapDispatchToProps = (dispatch) => {
         }
     };
 };
-
 import {connect} from 'react-redux';
 const VisibileTodoList = connect(
     mapStateToProps,
