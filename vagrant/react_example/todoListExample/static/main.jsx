@@ -246,12 +246,7 @@ let AddTodo = ({dispatch}) => {
         </div>
     );
 };
-AddTodo = connect(
-    null,
-    dispatch => {
-        return {dispatch};
-    }
-)(AddTodo);
+AddTodo = connect()(AddTodo);
 
 const mapStateToProps = (state) => {
     return {
