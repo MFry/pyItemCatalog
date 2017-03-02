@@ -248,7 +248,7 @@ let AddTodo = ({dispatch}) => {
 };
 AddTodo = connect()(AddTodo);
 
-const mapStateToProps = (state) => {
+const mapStateTodoListToProps = (state) => {
     return {
         todos: getVisibleTodos(
             state.todos,
@@ -256,7 +256,7 @@ const mapStateToProps = (state) => {
         )
     };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchTodoListToProps = (dispatch) => {
     return {
         onTodoClick: (id) => {
             store.dispatch({
@@ -268,8 +268,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 import {connect} from 'react-redux';
 const VisibileTodoList = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateTodoListToProps,
+    mapDispatchTodoListToProps
 )(TodoList);
 
 let nextToDoId = 0;
