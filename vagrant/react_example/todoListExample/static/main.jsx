@@ -267,7 +267,7 @@ const mapDispatchTodoListToProps = (dispatch) => {
     };
 };
 import {connect} from 'react-redux';
-const VisibileTodoList = connect(
+const VisibleTodoList = connect(
     mapStateTodoListToProps,
     mapDispatchTodoListToProps
 )(TodoList);
