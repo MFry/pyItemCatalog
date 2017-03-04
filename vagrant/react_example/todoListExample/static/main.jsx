@@ -211,6 +211,16 @@ const TodoList = ({
     </ul>
 );
 
+let nextTodoId = 0;
+const addTodo = (test) => {
+    return {
+        type: 'ADD_TODO',
+        id: nextTodoId++,
+        text
+    };
+};
+
+
 let AddTodo = ({dispatch}) => {
     let input;
 
@@ -220,11 +230,7 @@ let AddTodo = ({dispatch}) => {
                 input = node;
             }}/>
             <button onClick={() => {
-                dispatch({
-                    type: 'ADD_TODO',
-                    text: input.value,
-                    id: nextToDoId++
-                });
+                dispatch(addTodo(input.value));
                 input.value = '';
             }}>
                 Add Todo
@@ -257,8 +263,6 @@ const VisibleTodoList = connect(
     mapStateTodoListToProps,
     mapDispatchTodoListToProps
 )(TodoList);
-
-let nextToDoId = 0;
 
 const TodoApp = () => {
         return (
