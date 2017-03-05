@@ -220,6 +220,13 @@ const addTodo = (test) => {
     };
 };
 
+const toggleTodo = (id) => {
+    return {
+        type: 'TOGGLE_TODO',
+        id
+    };
+};
+
 
 let AddTodo = ({dispatch}) => {
     let input;
@@ -251,10 +258,7 @@ const mapStateTodoListToProps = (state) => {
 const mapDispatchTodoListToProps = (dispatch) => {
     return {
         onTodoClick: (id) => {
-            dispatch({
-                type: 'TOGGLE_TODO',
-                id
-            })
+            dispatch(toggleTodo(id));
         }
     };
 };
