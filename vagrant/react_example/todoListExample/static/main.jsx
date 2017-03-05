@@ -251,7 +251,7 @@ const mapStateTodoListToProps = (state) => {
 const mapDispatchTodoListToProps = (dispatch) => {
     return {
         onTodoClick: (id) => {
-            store.dispatch({
+            dispatch({
                 type: 'TOGGLE_TODO',
                 id
             })
