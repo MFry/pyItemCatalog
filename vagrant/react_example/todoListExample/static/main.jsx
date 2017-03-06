@@ -82,6 +82,25 @@ const todoApp = (state = {}, action) => {
     };
 };
  */
+
+
+let nextTodoId = 0;
+const addTodo = (test) => {
+    return {
+        type: 'ADD_TODO',
+        id: nextTodoId++,
+        text
+    };
+};
+
+const toggleTodo = (id) => {
+    return {
+        type: 'TOGGLE_TODO',
+        id
+    };
+};
+
+
 const todoApp = combineReducers({
     todos,
     visibilityFilter
@@ -141,10 +160,9 @@ const mapDispatchToLinkProps = (dispatch,
                                 ownProps) => {
     return {
         onClick: () => {
-            dispatch({
-                type: 'SET_VISIBILITY_FILTER',
-                filter: ownProps.filter
-            });
+            dispatch(
+                setVisibilityFilter(ownProps.filter)
+            );
         }
     };
 };
@@ -210,23 +228,6 @@ const TodoList = ({
         )}
     </ul>
 );
-
-let nextTodoId = 0;
-const addTodo = (test) => {
-    return {
-        type: 'ADD_TODO',
-        id: nextTodoId++,
-        text
-    };
-};
-
-const toggleTodo = (id) => {
-    return {
-        type: 'TOGGLE_TODO',
-        id
-    };
-};
-
 
 let AddTodo = ({dispatch}) => {
     let input;
