@@ -100,6 +100,12 @@ const toggleTodo = (id) => {
     };
 };
 
+const setVisibilityFilter = () => {
+    return {
+        type: 'SET_VISIBILITY_FILTER',
+        filter: ownProps.filter
+    };
+};
 
 const todoApp = combineReducers({
     todos,
