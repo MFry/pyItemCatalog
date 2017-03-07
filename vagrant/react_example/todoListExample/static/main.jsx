@@ -100,10 +100,10 @@ const toggleTodo = (id) => {
     };
 };
 
-const setVisibilityFilter = () => {
+const setVisibilityFilter = (filter) => {
     return {
         type: 'SET_VISIBILITY_FILTER',
-        filter: ownProps.filter
+        filter
     };
 };
 
