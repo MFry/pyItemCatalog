@@ -85,7 +85,7 @@ const todoApp = (state = {}, action) => {
 
 
 let nextTodoId = 0;
-const addTodo = (test) => {
+const addTodo = (text) => {
     return {
         type: 'ADD_TODO',
         id: nextTodoId++,
