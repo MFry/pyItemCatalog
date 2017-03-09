@@ -149,23 +149,19 @@ const Link = ({
 };
 
 const mapStateToLinkProps = (state,
-                             ownProps) => {
-    return {
-        active: ownProps.filter ===
-        state.visibilityFilter
-    };
-};
+                             ownProps) => ({
+    active: ownProps.filter ===
+    state.visibilityFilter
+});
 
 const mapDispatchToLinkProps = (dispatch,
-                                ownProps) => {
-    return {
+                                ownProps) => ({
         onClick: () => {
             dispatch(
                 setVisibilityFilter(ownProps.filter)
             );
         }
-    };
-};
+});
 
 const FilterLink = connect(
     mapStateToLinkProps,
