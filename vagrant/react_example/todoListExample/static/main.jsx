@@ -6,6 +6,7 @@ import deepFreeze from "deep-freeze";
 import {combineReducers} from "redux";
 import React from "react";
 import ReactDOM from "react-dom";
+import {connect} from 'react-redux';
 
 const todo = (state, action) => {
     switch (action.type) {
@@ -154,13 +155,12 @@ const mapStateToLinkProps = (state,
     state.visibilityFilter
 });
 
-const mapDispatchToLinkProps = (dispatch,
-                                ownProps) => ({
-    onClick() {
-            dispatch(
-                setVisibilityFilter(ownProps.filter)
-            );
-        }
+const mapDispatchToLinkProps = (dispatch, ownProps) => ({
+    onClick: () => {
+      dispatch(
+        setVisibilityFilter(ownProps.filter)
+      );
+    }
 });
 
 const FilterLink = connect(
@@ -219,7 +219,7 @@ const TodoList = ({
             <Todo
                 key={todo.id}
                 {...todo}
-                onClick={onTodoClick(todo.id)}
+                onClick={() => onTodoClick(todo.id)}
             />
         )}
     </ul>
@@ -255,7 +255,7 @@ const mapDispatchTodoListToProps = (dispatch) => ({
         dispatch(toggleTodo(id));
     }
 });
-import {connect} from 'react-redux';
+
 const VisibleTodoList = connect(
     mapStateTodoListToProps,
     mapDispatchTodoListToProps
