@@ -149,8 +149,7 @@ const Link = ({
     );
 };
 
-const mapStateToLinkProps = (state,
-                             ownProps) => ({
+const mapStateToLinkProps = (state, ownProps) => ({
     active: ownProps.filter ===
     state.visibilityFilter
 });
@@ -171,24 +170,17 @@ const Footer = () => {
         <p>
             Show:
             {' '}
-            <FilterLink
-                filter="SHOW_ALL"
-            >
+            <FilterLink filter="SHOW_ALL">
                 All
             </FilterLink>
             {', '}
-            <FilterLink
-                filter="SHOW_ACTIVE"
-            >
+            <FilterLink filter="SHOW_ACTIVE">
                 Active
             </FilterLink>
             {', '}
-            <FilterLink
-                filter="SHOW_COMPLETED"
-            >
+            <FilterLink filter="SHOW_COMPLETED">
                 Completed
             </FilterLink>
-
         </p>
     );
 };
