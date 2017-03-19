@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "babel-preset-stage-2": "^6.22.0",
+    "node-uuid": "^1.4.7",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.2",
