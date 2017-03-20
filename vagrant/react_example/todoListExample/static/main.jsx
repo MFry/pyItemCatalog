@@ -263,14 +263,9 @@ const TodoApp = () => {
 
 import {Provider} from 'react-redux';
 import {createStore} from "redux";
+import { loadState } from './localStorage';
 
-const persistentState = {
-    todos: [{
-        id: 0,
-        text: 'Welcome back',
-        completed: false,
-    }],
-};
+const persistentState = loadState();
 
 ReactDOM.render(
     <Provider store={createStore(
