@@ -270,7 +270,9 @@ const persistentState = loadState();
 const store = createStore(todoApp, persistentState);
 
 store.subscribe(() => {
-   saveState(store.getState());
+   saveState({
+       todos: store.getState().todos
+    });
 });
 
 ReactDOM.render(
