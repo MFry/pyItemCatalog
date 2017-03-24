@@ -8,13 +8,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {connect} from 'react-redux';
 import { v4 } from 'node-uuid';
-import todos from './reducers/todos';
-import visibilityFilter from './reducers/visibilityFilter';
-
-const todoApp = combineReducers({
-    todos,
-    visibilityFilter
-});
+import todoApp from 'reducers/index';
 
 /*
  const combineReducers = (reducers) => {
