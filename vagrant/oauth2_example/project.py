@@ -4,11 +4,17 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for, f
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from flask import session as login_session
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.client import FlowExchangeError
+import httplib2
+import json
+from flask import make_response
+import requests
 
 from database_setup import Base, Restaurant, MenuItem
 
 app = Flask(__name__)
-
+CLIENT_ID = json.loads(open('client_secrets.json').read())['web']['client_id']
 # Connect to Database and create database session
 engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = engine
@@ -22,6 +28,11 @@ def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(32))
     login_session['state'] = state
     return render_template('login.html')
+
+
+@app.route('/gconnect', methods=['POST'])
+def gconnect():
+    pass
 
 
 # JSON APIs to view Restaurant Information
