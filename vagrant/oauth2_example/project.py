@@ -21,7 +21,7 @@ session = DBSession()
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(32))
     login_session['state'] = state
-    return render_template('login.html')p
+    return render_template('login.html')
 
 
 # JSON APIs to view Restaurant Information
