@@ -14,7 +14,7 @@ import requests
 from database_setup import Base, Restaurant, MenuItem
 
 app = Flask(__name__)
-CLIENT_ID = json.loads(open('client_secrets.json').read())['web']['client_id']
+CLIENT_ID = json.loads(open('client_secret.json').read())['web']['client_id']
 # Connect to Database and create database session
 engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = engine
