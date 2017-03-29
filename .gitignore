@@ -86,3 +86,6 @@ vagrant/itemCatalog/virtualenv/
 
 ### Webpack output
 vagrant/itemCatalog/static/dist
+
+# OAuth2 secrets
+client_secret.json
