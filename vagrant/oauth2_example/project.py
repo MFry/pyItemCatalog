@@ -59,13 +59,16 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
     # Verify that the access token is used for the intended user.
     gplus_id = credentials.id_token['sub']
-    # Verify we have the correct token
     if result['user_id'] != gplus_id:
         response = make_response(json.dumps("Token's user ID doesn't match given user ID."), 401)
         print('Token\'s client ID does not match app\'s')
         response.headers['Content-Type'] = 'application/json'
         return response
-
+    # Verify that the token is valid for this app.
+    if result['issued_to'] != CLIENT_ID:
+        response = make_response(
+            json.dumps("Token's client ID does not match app's."), 401)
+        print("Token's client ID does not match app's.")
     # Check to see if user is already logged in
     stored_credentials = login_session.get('credentials')
     stored_gplus_id = login_session.get('gplus_id')
