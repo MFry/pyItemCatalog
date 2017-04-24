@@ -27,20 +27,20 @@ session = DBSession()
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(32))
     login_session['state'] = state
-    return render_template('login.html')
+    return render_template('login.html', state=state)
 
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # Round trip verification
-    if requests.args.get('state') != login_session['state']:
+    if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    code = requests.data
+    code = request.data
     try:
         # Upgrade the one time authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('client_secret.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -59,6 +59,7 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
     # Verify that the access token is used for the intended user.
     gplus_id = credentials.id_token['sub']
+    # Verify we have the correct token
     if result['user_id'] != gplus_id:
         response = make_response(json.dumps("Token's user ID doesn't match given user ID."), 401)
         print('Token\'s client ID does not match app\'s')
