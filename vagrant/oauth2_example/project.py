@@ -10,6 +10,7 @@ import httplib2
 import json
 from flask import make_response
 import requests
+from werkzeug.http import parse_options_header
 
 from database_setup import Base, Restaurant, MenuItem
 
@@ -51,8 +52,11 @@ def gconnect():
     access_token = credentials.access_token
     # Google API to verify valid use
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={}'.format(access_token))
-    h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+    h = httplib2.Http('.cache')
+    header, google_api_data = h.request(url, 'GET')
+    # Get the character set encoding from the header
+    encoding = parse_options_header(header['content-type'])[1]
+    result = json.loads(google_api_data.decode(encoding['charset']))
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
         response = make_response(json.dumps(result.get('error')), 500)
